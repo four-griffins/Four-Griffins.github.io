@@ -1,0 +1,144 @@
+use wasm_bindgen::prelude::*;
+use string_builder::Builder;
+
+fn format_code(code: &str) -> String {
+
+    let mut result = Builder::default();
+    result.append("<pre><code class='dart-code'>");
+
+    let mut tag_word = false;
+    let mut tag_single_quote_string = false;
+    let mut tag_double_quote_string = false;
+    let mut tag_comment = false;
+
+    let mut backlog = Builder::default();
+    let mut chars = code.chars();
+    while let Some(i) = chars.next() {
+        if i == '/' && tag_comment {
+            let mut x = chars.next();
+        } else if i == '/' { tag_comment = true; }
+        else { tag_comment = false; }
+        match i {
+            '\'' if tag_single_quote_string => {
+                result.append(format!("<span style='color: yellow'>'{}'</span>", backlog.string().unwrap()));
+                tag_single_quote_string = false;
+                backlog = Builder::default();
+            },
+            '\'' => { tag_single_quote_string = true; },
+            '"' if tag_double_quote_string => {
+                result.append(format!("<span style='color: yellow'>\"{}\"</span>", backlog.string().unwrap()));
+                tag_double_quote_string = false;
+                backlog = Builder::default();
+            },
+            '"' => { tag_double_quote_string = true; },
+
+            _ if tag_single_quote_string => backlog.append(i),
+            _ if tag_double_quote_string => backlog.append(i),
+
+            'A'..='z' => { backlog.append(i); tag_word = true; }
+            '0'..='9' if tag_word => backlog.append(i),
+            _ => {
+                if tag_word {
+                    result.append(format!("<span style='color: lightblue;'>{}</span>{}", backlog.string().unwrap(), i));
+                    tag_word = false;
+                    backlog = Builder::default();
+                } else {
+                    result.append(i);
+                }
+            }
+
+        }
+    }
+
+    result.string().unwrap()
+}
+
+enum Tag {
+    Name(String),
+    Operator(String),
+    Keyword(String),
+    Comment(String),
+    SingleString(String),
+    DoubleString(String),
+}
+
+fn tokenize(code: &mut std::str::Chars) -> String {
+    let mut result = Builder::default();
+
+    
+
+    result.string().unwrap()
+}
+
+#[wasm_bindgen]
+pub fn run2(code: &str) -> String {
+
+    let mut chars = code.chars();
+    let mut result = Builder::default();
+
+    while let Some(x) = chars.next() {
+        match x {
+            '<' => {
+                let tag = get_tag(&mut chars);
+
+                if tag == "dart" {
+                    result.append("<pre><code>");
+                    result.append(tokenize(&mut chars));
+                    result.append("</code></pre>");
+                }
+            },
+            _ => result.append(x),
+        }
+    }
+
+    if let Ok(res) = result.string() { res } else { String::from("Something went wrong parsing the article.") }
+}
+
+#[wasm_bindgen]
+pub fn run(code: &str) -> String {
+
+    let mut chars = code.chars();
+    let mut tag_code = false;
+
+    let mut result = Builder::default();
+    let mut code_builder = Builder::default();
+
+    while let Some(x) = chars.next() {
+        match x {
+            '<' => {
+                let tag = get_tag(&mut chars);
+                if tag_code { if tag == "/dart" {
+                    tag_code = false;
+                    result.append(format_code(&code_builder.string().unwrap()));
+                    result.append("</code></pre>");
+                    code_builder = Builder::default();
+                }}
+                else if tag == "dart" { chars.next(); tag_code = true; }
+                else { result.append(format!("<{}>", tag)); }
+            },
+            _ => {
+                if tag_code { code_builder.append(x); }
+                else { result.append(x); }
+            },
+        }
+    }
+
+    if let Ok(res) = result.string() { res } else { String::from("Something went wrong parsing the article.") }
+}
+
+fn get_tag(chars: &mut dyn Iterator<Item = char>) -> String {
+    let mut res = Builder::default();
+    while let Some(x) = chars.next() {
+        match x {
+            '>' => { return res.string().unwrap(); },
+            '/' => {
+                let b = chars.next();
+                if let Some('>') = b { return res.string().unwrap(); }
+                else { res.append('/'); res.append(b.unwrap()); }
+            },
+            _ => { res.append(x); }
+        }
+    }
+
+    res.string().unwrap()
+}
