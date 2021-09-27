@@ -1,0 +1,53 @@
+#page-wrapper.out { transform: translateX(var(--drawer-width)); }
+
+#drawer {
+  background: var(--drawer-color);
+  color: var(--fg-color);
+  text-align: end;
+  position: fixed;
+  left: calc(0px - var(--drawer-width));
+  height: 100vh; width: var(--drawer-width);
+  z-index: -1;
+}
+
+#drawer > p { padding: 1rem 2rem; margin: 0; cursor: pointer; }
+#drawer > p:hover { background: #555; }
+
+label span { margin: 0 .5rem; }
+
+#label-prev {
+  position: absolute;
+  top: 1.2rem; left: 4rem;
+}
+
+#label-next {
+  position: absolute;
+  top: 1.2rem; right: 4rem;
+}
+
+#content > article {
+  position: relative; left: 0;
+  color: var(--fg-color);
+  width: min(900px, 80vw);
+  margin-bottom: 4rem;
+}
+
+h3 {
+  padding-top: 1em;
+}
+
+a {
+  color: rgb(43, 121, 162);
+  font-weight: bold;
+  text-decoration: none;
+}
+
+@media screen and (max-width: 800px) {
+  body {
+    --drawer-width: 85vw;
+  }
+
+  #name-prev, #name-next {
+    display: none;
+  }
+}
