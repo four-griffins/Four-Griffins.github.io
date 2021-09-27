@@ -1,0 +1,133 @@
+<h2>Introduction</h2>
+<p>
+Welcome to <span style="color: #298047">Four_Griffin's</span> coding class!
+On this website you can find all the things that I taught in the coding streams
+on the Discord server, as well as a bunch of exercises to practice those things
+you learnt. On top of that, this introduction page will explain a few things
+that will be important before you get started.
+</p>
+
+<h3>The tools</h3>
+<p>
+All the examples and exercises used in this course are in
+<a href="https://dart.dev/" target="_blank">Dart</a>, a programming language
+designed by Google for use in their UI platform called
+<a href="https://flutter.dev/" target="_blank">Flutter</a>.  If that sounds like
+gibberish to you, that's fine.  The important thing to know is that Dart was
+made to be fast, understandable and predictable, and it adopted its design from
+a variety of well-known and established programming languages. This means that
+if you learn things in Dart, you will easily be able to switch to almost any
+language, since a lot of the concepts are fundamentally the same.
+</p>
+<p>
+There is another good reason to use Dart: there is an online codepad available,
+located at <a href="https://dartpad.dev" target="_blank">dartpad.dev</a>. A
+codepad is an online code editor that allows you to write and run code right in
+your browser, without having to install anything. That makes it easy for anyone
+to follow along, just go to <a href="https://dartpad.dev"
+target="_blank">dartpad.dev</a> and get started!
+</p>
+<p>
+That said, maybe you would still like to install Dart on your computer; for
+example to make programs that ask for input, or programs that read or write
+files. To do this, you need to head over to the <a href="https://dart.dev/get-dart"
+target="_blank">dart.dev install manual</a> and follow the instructions for
+your operating system. Be assured though, by default my examples and exercises
+will not use anything that can't be done with Dartpad, and if you need a local
+install of Dart, the exercise will explicitly tell you.
+</p>
+
+<h3>The Dartpad interface</h3>
+<p>
+Since we are going to use Dartpad as a learning tool, let's take a quick look
+at its layout. I've included the website below for you to test out (yes, it's
+not a screenshot, you can actually use this included page to play around).
+</p>
+<iframe src="https://dartpad.dev" style="width: 100%; height: 25rem"></iframe>
+<p>
+On the left side is the most important part of Dartpad: the code editor. If you
+haven't used Dartpad yet, it probably contains a simple example program. Have
+you noticed how the text looks? A monospaced font and a lot of colors.  This is
+standard when it comes to coding. The point of the colors is to make it easier
+to navigate and to recognise the different parts of the program, and the
+monospaced font is for the sake of lining things up more easily, as well as
+making certain special characters like semicolons easier to see.
+</p>
+<p>
+There is a bright blue 'Run' button in the top right corner of the editor.
+Go on, press it. The code on the left will be run and the result will be printed
+out to the console on the right. The console is very easy to understand: it's just
+the place where your program's output goes, in the form of text. Right below the 
+console is a handy documentation window. If ou go to the editor and click on the word
+<code style="color: rgb(0, 170, 210);">print</code> on the third line of code,
+the documentation window will show you a summary of what the function does and
+how you can use it.
+</p>
+<p>
+There are some more buttons, but most of them aren't important to us. The
+null-safety switch will be explained later, in one of the future chapters.
+The format button is used to quickly arrange your code the way most programmers do it,
+for example it will make code between curly braces have an extra tab compared to
+the braces. The reset and new pad buttons aren't very useful, it's quicker to just
+select all the code in the editor and delete it. And lastly, the top right has
+an example button that shows some cool things you can do with Dart (although a
+lot of them are in Flutter).
+</p>
+
+<h3>Comparing Dart to other languages</h3>
+<p>
+As I said earlier, Dart was made to be predictable, and thus the way it looks
+is very similar to other languages, to make it easier for people with a
+background in those languages to get started with Dart.  It might be
+interesting to take a look at the syntax of Dart, and the history behind why it
+came to be that way. Beware though, this paragraph will contain a fair bit
+of technical jargon and none of it is critical information, so feel free to skip it.
+</p>
+<p>
+Dart very closely follows the basic syntax of Java, which itself was derived
+from C and C++. The most obvious common elements are the use of curly braces
+<code>{}</code> to indicate blocks of code and define scope, and the period
+to access the members of a class. Dart is also strongly typed, which means that
+all variables need to be given a datatype, and they can only store data of that
+type.  Dart does not have pointers or memory management, instead it uses a
+garbage collector.  And of course Dart is an object-oriented language, just
+like Java, making use of classes and inheritance.
+</p>
+<p>
+In fact, Dart is so similar to Java that it might be more useful to highlight
+the important differences.  The first big difference is how the program is run.
+Java is meant to be compiled to bytecode, which needs to run on a virtual
+machine (the so-called JVM or Java Virtual Machine) on top of the actual
+computer.  Dart however has more options. It can be directly interpreted by the
+Dart VM as a script, similar to e.g. Python code, it can be compiled to a
+binary executable file that can be run by the computer directly without the
+need for a virtual machine, and it can even be cross-compiled to Javascript and
+run as a web-application!
+</p>
+<p>
+Another big difference is null-safety, which will be covered in a later
+chapter. The lack of null safety is a bit of an oversight in the design of
+Java, but now it's too late to change this, since too many programs expect Java
+to not be null-safe. Luckily Dart learned from the mistakes of the past and
+includes null-safety by default.
+</p>
+<p>
+Since Dart was made with UI design in mind, it has very solid async-await support
+out of the box. Java technically has that as well, but it's more of an afterthought,
+unlike in Dart where it was really added as a core feature deeply embedded into the
+language.
+</p>
+<p>
+And lastly: Java is very strict in being object-oriented, forcing you always
+use classes for programs. Dart is a bit more loose and allows for variables and
+functions outside of classes.
+</p>
+
+<h3>Enough rambling</h3>
+<p>
+If you read that whole thing, consider me impressed. This intro is not very
+important for the actual class, and I got carried away writing about Dart
+versus other languages.  Now you get to DM me on Discord to tell me that you
+are a very thorough student :P<br/> In any case, this will do for an introduction.
+Let's get started with the basics of a Dart program!
+</p>

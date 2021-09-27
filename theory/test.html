@@ -1,0 +1,67 @@
+<h2>Test</h2>
+<p>
+This is a test
+</p>
+<dart>
+main() {
+  List<Area> terrain = [Square(5), Rectangle(3, 4), Triangle(7, 3), Circle(6)];
+
+  double total = 0.0;
+  for (Area part in terrain) {
+    total += part.giveArea();
+  }
+
+  print(total);
+}
+
+class Area {
+  double giveArea() {
+    return 0.0;
+  }
+}
+
+class Triangle extends Area {
+  double base;
+  double height;
+
+  Triangle(this.base, this.height);
+
+  @override double giveArea() {
+    return base * height / 2;
+  }
+}
+
+class Square extends Area {
+  double width;
+
+  Square(this.width);
+
+  @override double giveArea() {
+    return width * width;
+  }
+}
+
+class Rectangle extends Area {
+  double width;
+  double height;
+
+  Rectangle(this.width, this.height);
+
+  @override double giveArea() {
+    return width * height;
+  }
+}
+
+class Circle extends Area {
+  double radius;
+
+  Circle(this.radius);
+
+  @override double giveArea() {
+    return radius * radius * 3.14;
+  }
+}
+</dart>
+<p>
+this concludes the test
+</p>

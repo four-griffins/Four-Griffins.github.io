@@ -1,0 +1,55 @@
+<h2>Formatting</h2>
+<p>
+I also want to tackle the subject of formatting right at the start. With
+formatting, I mean the way in which you decide to structure your code 
+visually. In all C-like languages (which includes Dart) most
+whitespace characters are ignored when the program is executed, so using spaces
+and tabs are mostly for aesthetics. That said, making your code readable is
+important, and not following the common ways to format your code is a surefire
+way to make other programmers dislike you :P.
+</p><p>
+Here are some patterns of code and the most commonly accepted way to write them; once you learn a new thing you can come back to check how most people tend to write them. My own
+style that all the examples are written in is very close to the standard,
+except from a few left out spaces here and there for brevity's sake.
+</p><dart>
+main() {
+  // no space between the function name and bracket,
+  // but a space between the bracket and curly brace
+
+  int myVariable = 5;
+  // everything between curly braces is indented 2 more spaces
+  // than those brackets
+  // variables are not capitalised, but variable names consisting of
+  // multiple words are glued together with a capital
+  // (this is called camel case)
+
+  if(myVariable == 7) {
+    // I tend to add a space between the 'if' and the bracket,
+    // to make them look different from functions
+
+    print("very good!");
+    // extra curly braces, so we move 2 more spaces!
+  } else {
+    int a = (4 + 9) * 2;
+    // all operators have a space on either side,
+    // but not the semicolon or the brackets
+  }
+
+  // we ended the brackets of the 'if else', so we go 2 spaces back
+  List<int> myList = [1, 2, 3, 4, 5];
+  // commas have a space after but not before them
+}
+
+class Tile {
+  int? x;
+  int? y;
+  //variables are declared on a separate line, even when very short
+
+  Tile(this.x, this.y);
+  // the usual order in a class is:
+  // first fields, then constructors, and functions last
+  
+  bool isBlack() { return (x + y)?.isEven(); }
+  // if a function is very short, you can put it on one line
+}
+</dart>

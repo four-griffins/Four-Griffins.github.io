@@ -1,0 +1,62 @@
+<h2>Hello World!</h2>
+<p>
+Every programmer has to start somewhere, and it's a tradition to start at a
+program that prints the text "hello, world!" to the console.  So let's start by
+looking at how such a program would be made in Dart.
+</p>
+<dart>
+main() {
+  print("hello world!");
+}
+</dart>
+<p>
+Now let's take a look at this code and dissect the different elements.<br/>
+First up, we will talk about functions. In a programming language, there are
+essentially 2 things you need to work with: data and instructions. Functions
+are a way to group up instructions, to keep them more organised and also to
+make it easy to run a whole group of instructions at once.
+</p>
+<dart>
+main() {
+
+}
+</dart>
+<p>
+This is how you define a function in Dart (very similar to most major
+programming languages).  We see the name of the function, <code class='themable
+function'>main</code>, followed by a pair of round brackets, and then curly
+braces. The round brackets are always part of the function, both when you
+define it and when you call it, so whenever you see round brackets in code with
+a name in front of it, you can be sure it's a function.  The curly braces are
+also important: they contain the instructions that will be executed when the
+function is called. In this case, the function contains a single instruction:
+</p>
+<dart>
+print("hello world!");
+</dart>
+<p>
+Once more we see a name and some round brackets - but there are some
+differences. This function does not have curly braces behind it, but a
+semicolon instead. This is because we aren't defining the function, we are
+calling it. The semicolon indicates that this is the end of the instruction.
+</p><p>
+We also see that the round brackets aren't empty, there is something in
+quotation marks in between them. The things we put in between the brackets of a
+function are called arguments, which are pieces of information given to a
+function,and in this case the given information is called a <code
+class='themable class'>String</code>.  A string is basically a piece of text
+that needs to be treated literally, meaning that anything between the quotation
+marks will not be interpreted as instructions.<br/>
+</p><p>
+As a whole, this instruction will call a function called <code class='themable
+  function'>print</code> and pass it a string as argument. The <code
+  class='themable function'>print</code> function is a built-in function of
+Dart, which will take the argument you give it and print a text version of it
+to the console. Since a string is already text, it will just print the text as
+is. If you press the run button now, you get the expected result: the text "Hello, World!"
+is printed to the console.
+</p>
+<h3>The <code>main</code> function</h3>
+<p>
+Throughout this course we will create a lot of functions, but there will always be exactly one function called <code>main</code>. This is because the program has to start somewhere, and in most languages, it starts by calling the main function. Not having a main function will break your program, so don't forget it!
+</p>
