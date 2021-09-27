@@ -1,0 +1,12 @@
+{
+  "name": "highlight-wasm",
+  "version": "0.1.0",
+  "files": [
+    "highlight_wasm_bg.wasm",
+    "highlight_wasm.js",
+    "highlight_wasm.d.ts"
+  ],
+  "module": "highlight_wasm.js",
+  "types": "highlight_wasm.d.ts",
+  "sideEffects": false
+}
