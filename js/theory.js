@@ -43,6 +43,7 @@ function changeArticle(nr) {
     document.getElementById('sidebar').checked = false;
 
     init().then(() => {
+      document.getElementById('content').scrollTop = 0;
       document.getElementById('content').children[0].innerHTML = decodeURI(run(getArticle.responseText));
       toggleDarkMode();
     });

@@ -1,16 +1,50 @@
-<h2>Formatting</h2>
+<h2>Comments and Formatting</h2>
+<h3>Comments</h3>
+<p>
+Throughout the examples, I will make use of the handy comment feature of Dart.
+Comments are a way to indicate that certain parts of the program aren't
+instructions, but commentary in text form. When something is indicated to be a
+comment, Dart will skip that part when executing the program.
+</p><p>
+There are 2 kinds of comments: line comments and block comments. As the name
+suggests, line comments span a single line, and they start from two slashes
+'<code>//</code>'. Block comments on the other hand can span as many lines as
+you want, and they are started with <code>/*</code> and ended with
+<code>*/</code>. Note how in the example below, the text that is commented is
+greyed out to indicate it's not part of the actual code of the program.
+</p><dart>
+main() {
+  int a = 5;
+  // this is a line comment, it ends at the end of this line
+  int b = 4;
+
+  //int b = 4;
+  // notice how the code is also grey, because it is commented out
+  print(a + b);
+  /* this is a block comment, so this line is also commented out
+    this is very useful to quickly disable a big batch of code,
+    or for longer explanations. I will use this to point out that
+    text comments often have a space after the slashes, but commented
+    code does not.
+  */
+  print(a - b);
+}
+</dart>
+<h3>Formatting</h3>
 <p>
 I also want to tackle the subject of formatting right at the start. With
-formatting, I mean the way in which you decide to structure your code 
-visually. In all C-like languages (which includes Dart) most
-whitespace characters are ignored when the program is executed, so using spaces
-and tabs are mostly for aesthetics. That said, making your code readable is
-important, and not following the common ways to format your code is a surefire
-way to make other programmers dislike you :P.
+formatting, I mean the way in which you decide to structure your code visually.
+In C-like languages ,which includes Dart, whitespace characters are almost
+always ignored when the program is executed, so using spaces, tabs and separate
+lines are for aesthetics and keeping the code readable. That said, making your
+code readable is important, and not following the common ways to format your
+code is a surefire way to make other programmers dislike you :P .
 </p><p>
-Here are some patterns of code and the most commonly accepted way to write them; once you learn a new thing you can come back to check how most people tend to write them. My own
-style that all the examples are written in is very close to the standard,
-except from a few left out spaces here and there for brevity's sake.
+Here are some patterns of code and the most commonly accepted way to write
+them; once you learn a new thing you can come back to check how most people
+tend to write them. My own style that all the examples are written in is very
+close to the standard, except from a few left out spaces here and there for
+brevity's sake.
 </p><dart>
 main() {
   // no space between the function name and bracket,

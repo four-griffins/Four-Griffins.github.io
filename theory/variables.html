@@ -1,0 +1,89 @@
+<h2>Variables and Expressions</h2>
+<p>
+Before we start calculating things, we first need to learn how to create data
+to perform the calculations on. This is done with <span class='themable
+class'>variables</span>, a concept that exists in every single programming
+language there is. Let's take a look at an example.
+</p><dart>
+main() {
+  int amountOfLegs = 2;
+  print(amountOfLegs);
+
+  amountOfLegs = 4;
+  print(amountOfLegs);
+}
+</dart><div class='remark'>
+Remember, if a variable name is multiple words, they are glued together, and
+the first word is lowercase while the rest is uppercase. so "amount of legs"
+becomes "<span style='color: #66b'>a</span>mount<span style='color: #b66'>O</span>f<span style='color: #b66'>L</span>egs".
+</div><p>
+There are 4 statements in this code. In the first one, we create a variable named <code>amountOfLegs</code> and give it a value
+of 2. Note that in programming, a single = sign means assigning a value to a
+variable, and the variable is always on the left while the value is on the
+right. After printing our variable, we give it a new value and then print it again. If you try this code on Dartpad, you will notice that the 2 <code>print</code> statements will produce the values 2 and 4 respectively.
+</p>
+<h3>Data Types</h3>
+<p>
+In some languages, that's where the story ends: you create variables by giving
+them a name, and a value. Those languages are called dynamically typed. But
+Dart, like many other languages, is statically typed, which means that whenever
+you create a variable, you have to specify what type of data it stores, and you
+can only store values of that type. In the example above, this is done with the
+word <code class='themable class'>int</code>. This specifies that
+<code>amountOfLegs</code> can store integervalues (integers are whole numbers).
+Let's take this code as an example:
+</p><dart>
+main() {
+  int amountOfLegs = "hello";
+  int count = 4.3;
+}
+</dart><p>
+Dart would refuse to run this code, because <code class='themable
+string'>"hello"</code> is a <code class='themable class'>String</code>, and
+<code>amountOfLegs</code> only accepts values of type <code class='themable
+class'>int</code>. Similarly, <code>count</code> would fail, because <code
+class='themable literal'>4.3</code> is not an <code class='themable
+class'>int</code>.
+</p><p>
+So what types are there? Well, there are a few built-in types that we can use.
+<ul>
+  <li><code class='themable class'>int</code>, which stores integer values like <code class='themable literal'>47</code>, <code class='themable literal'>-905</code> and <code class='themable literal'>0</code>.</li>
+  <li><code class='themable class'>double</code>, which can store floating point values like <code class='themable literal'>3.14</code>. Its name is derived from the fact that it takes twice as much memory space to store a single value compared to the <code class='themable class'>int</code>.</li>
+  <li><code class='themable class'>bool</code>, wich stores exactly 2 possible values: <code class='themable literal'>true</code> and <code class='themable literal'>false</code>. These are used to create conditions, in case you only want to run code in certain circumstances.</li>
+</ul>
+<code class='themable class'>String</code>s are actually not a standard type;
+you can tell because its name starts with a capital, unlike the others I
+mentioned. <code class='themable class'>String</code> is actually a class. We
+will learn more about classes later, but in short, they are types that you can
+create yourself, so you can store any kind of data you want. Just like the
+<code>print</code> function, the <code class='themable class'>String</code>
+class is provided by Dart automatically.
+</p>
+<h3>Expressions</h3>
+<p>
+Now we know that assigning variables works in the following pattern:
+<dart> <name> = <value>; </dart>
+But the &lt;value> part is a lot more flexible than just typing an actual value. You can put anything you want there, as long as it can ultimately be resolved to a single value of the right type. For example, you can put a long calculation there.
+<dart>
+main() {
+  double a = (4 + 3) * 7.7 / 2.5 + 15;
+}
+</dart>
+This whole calculation can be reduced to a single floating-point number, so Dart will perform the calculation and assign the result to <code>a</code>. Even better, we can also use variables in those calculations:
+<dart>
+main() {
+  int x = 4;
+  int y = 2 * x + 5; // results to y = 13
+}
+</dart>
+Expressions also exist for other types, outside numbers. Here are some examples:
+<dart>
+main() {
+  String greeting = "Hello" + "world" + "!";
+  print(greeting); // Helloworld!
+
+  bool finished = true && ((false || true) != true);
+  print(finished); // false
+}
+</dart>
+</p>

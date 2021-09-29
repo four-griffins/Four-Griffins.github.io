@@ -53,44 +53,52 @@ fn tag(code: &mut std::str::Chars) -> (bool, String) {
 fn tokenize(code: String) -> String {
     let mut result = String::with_capacity(code.len() * 2);
 
-    //comment, single-string, double-string
-    let mut tags = [false; 3];
+    //line-comment, block-comment, single-string, double-string
+    let mut tags = [false; 4];
     let mut start = 0;
 
     let mut i = 0;
     while i < code.len() {
         match &code[i..i+1] {
-            "<" if tags[0] => { result += &code[start..i]; result += "&lt;"; start = i + 1; },
+            "<" if tags[0] || tags[1]  => { result += &code[start..i]; result += "&lt;"; start = i + 1; },
             
             //COMMENTS
-            "\n" if tags[0] => {
+            "*" if tags[1] && &code[i..i+2] == "*/" => {
+                result += &code[start..i]; result += "*/</span>";
+                tags[1] = false; i += 2; start = i;
+            },
+            "\n" if tags[0] && !tags[1] => {
                 result += &code[start..i]; result += "</span>";
                 tags[0] = false; start = i;
             },
-            _ if tags[0] => {},
-            "/" if !tags[0] && &code[i..i+2] == "//" => {
+            _ if tags[0] || tags[1]  => {},
+            "/" if !tags[0] && !tags[1] && &code[i..i+2] == "/*" => {
+                result += &code[start..i]; result += "<span class='themable comment'>";
+                tags[1] = true; start = i;
+            },
+            "/" if !tags[0] && !tags[1] && &code[i..i+2] == "//" => {
                 result += &code[start..i]; result += "<span class='themable comment'>";
                 tags[0] = true; start = i;
             },
 
             //STRINGS
-            "'" if tags[1] => {
+            "'" if tags[2] => {
                 result += &code[start..i]; result += "'</span>";
-                tags[1] = false; start = i+1;
-            },
-            "\"" if tags[2] => {
-                result += &code[start..i]; result += "\"</span>";
                 tags[2] = false; start = i+1;
+            },
+            "\"" if tags[3] => {
+                result += &code[start..i]; result += "\"</span>";
+                tags[3] = false; start = i+1;
             },
             "'" => {
                 result += &code[start..i]; result += "<span class='themable string'>";
-                tags[1] = true; start = i;
+                tags[2] = true; start = i;
             },
             "\"" => {
                 result += &code[start..i]; result += "<span class='themable string'>";
-                tags[2] = true; start = i;
+                tags[3] = true; start = i;
             },
-            _ if tags[1] || tags[2] => {},
+            _ if tags[2] || tags[3] => {},
 
             //OPERATORS
             " " | "\n" => {
@@ -98,7 +106,8 @@ fn tokenize(code: String) -> String {
                 result += &code[i..i+1];
                 start = i + 1;
             },
-            "{" | "}" | "[" | "]" | ")" | "." | "," | ">" | "+" | "-" | "*" | "/" | "=" | ";" => {
+            "{" | "}" | "[" | "]" | ")" | "." | "," | ">" | "+" |
+            "-" | "*" | "/" | "=" | ";" | "|" | "&" => {
                 tokenize_word(&code, &mut result, start, i, "variable");
                 result += "<span class='themable operator'>";
                 result += &code[i..i+1];

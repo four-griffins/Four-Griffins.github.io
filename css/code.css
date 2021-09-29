@@ -1,8 +1,14 @@
-pre {
+pre.themable {
   background: #18191a;
-  border-radius: 5px;
+  border-radius: 6px;
   padding: 1rem;
   overflow-x: auto;
+}
+
+.remark {
+  background: rgb(46, 39, 46);
+  border-radius: 6px;
+  padding: 1rem;
 }
 
 pre.light { background: #aaa; }
