@@ -68,8 +68,8 @@ fn tokenize(code: String) -> String {
                 tags[1] = false; i += 2; start = i;
             },
             "\n" if tags[0] && !tags[1] => {
-                result += &code[start..i]; result += "</span>";
-                tags[0] = false; start = i;
+                result += &code[start..i]; result += "</span>\n";
+                tags[0] = false; start = i+1;
             },
             _ if tags[0] || tags[1]  => {},
             "/" if !tags[0] && !tags[1] && &code[i..i+2] == "/*" => {
