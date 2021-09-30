@@ -13,23 +13,20 @@ pre.themable {
 
 pre.light { background: #aaa; }
 
-.comment { color: #7c6f64; }
 .comment.light { color: #765f54; }
-
-.string { color: #fabd2f; }
 .string.light { color: #c56614; }
-
-.class { color: #fb4934; }
 .class.light { color: #cc241d; }
-
-.keyword { color: #b8bb26; }
 .keyword.light { color: #98971a; }
-
-.operator { color: #83a598; }
 .operator.light { color: #458588; }
-
-.function { color: #8ec07c; }
 .function.light { color: #689d6a; }
-
-.literal { color: #d3869b; }
 .literal.light { color: #b16286; }
+
+.comment { color: #7c6f64; }
+.string { color: #fe8019; }
+.class { color: #458588; }
+.keyword { color: #fb4934; }
+/* .function { color: #98971a; } */
+.function { color: #b8bb26; }
+.literal { color: #d3869b; }
+.operator { color: #83a598; }
+/* .variable { color: #fe8019; } */
