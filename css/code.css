@@ -8,11 +8,15 @@ pre.themable {
 .remark {
   background: rgb(46, 39, 46);
   border-radius: 6px;
-  padding: 1rem;
+  padding: 0.8rem;
+  margin: 1rem 0;
 }
-.remark.light {
-  background: #9798a2;
-}
+.remark.light { background: #9798a2; }
+.remark > h3 { padding-top: 0; margin-top: .4rem; }
+article > h3 { padding-top: 1em; }
+
+
+li { padding: .3rem 0; }
 
 pre.light { background: #bbb; }
 
@@ -20,14 +24,14 @@ pre.light { background: #bbb; }
 .string { color: #fe8019; }
 .class { color: #458598; }
 .keyword { color: #fb4934; }
-.function { color: #b8bb26; }
+.function { color: #55ab24; }
 .literal { color: #d3869b; }
-.operator { color: #83a598; }
+.operator { color: #73b598; }
 
 .light.comment { color: #7c6f64; }
-.light.string { color: #af3a03; }
-.light.class { color: #076678; }
-.light.keyword { color: #9d0006; }
-.light.function { color: #59841e; }
+.light.string { color: #bf7503; }
+.light.class { color: #054688; }
+.light.keyword { color: #ad0806; }
+.light.function { color: #25700e; }
 .light.literal { color: #8f3f71; }
-.light.operator { color: #458588; }
+.light.operator { color: #656568; }

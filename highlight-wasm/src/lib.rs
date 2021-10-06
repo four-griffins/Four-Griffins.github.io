@@ -107,7 +107,7 @@ fn tokenize(code: String) -> String {
                 start = i + 1;
             },
             "{" | "}" | "[" | "]" | ")" | "." | "," | ">" | "+" |
-            "-" | "*" | "/" | "=" | ";" | "|" | "&" => {
+            "-" | "*" | "/" | "=" | ";" | "|" | "&" | "!" | "?" => {
                 tokenize_word(&code, &mut result, start, i, "variable");
                 result += "<span class='themable operator'>";
                 result += &code[i..i+1];
@@ -117,10 +117,7 @@ fn tokenize(code: String) -> String {
             },
             "(" => {
                 tokenize_word(&code, &mut result, start, i, "function");
-                result += "<span class='themable operator'>";
-                result += &code[i..i+1];
-                result += "</span>";
-
+                result += "<span class='themable operator'>(</span>";
                 start = i + 1;
             },
             "<" => {

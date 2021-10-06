@@ -1,0 +1,115 @@
+<h2>Functions</h2>
+<p>
+We already talked about functions briefly, but let's now take a deeper look. The template for a new function is like this:
+<dart>
+<name>() {
+
+}
+</dart>
+<div class='themable remark'>The name of the function is in camelCase, just like variables.</div>
+</p>
+<h3>Arguments</h3>
+<p>
+Functions can take arguments. This can be used to change the exact way the
+function works, or to pass through data that the function uses to do things.
+Here is a simple example:
+<dart>
+main() {
+  greet("Bert");
+  greet("Ernie");
+}
+
+greet(String friend) {
+  print("A warm welcome to...");
+  print(friend);
+}
+</dart>
+Here, the function <code class="themable function">greet</code> takes 1
+argument of type <code class="themable class">String</code> and we give it the
+name <code class="themable variable">friend</code>. Note how it looks almost
+exactly like creating a variable normally, except we don't give it a value.
+This is because the value is assigned the moment the function is called, like
+in this example where we pass the value <code class="themable string">"Bert"
+</code> and then <code class='themable string'>"Ernie"</code>.
+</p><p>
+The first time the function is called, the argument <code class='themable
+string'>"Bert"</code> is passed between the brackets. This is a <code class='themable class'>
+String</code>, so this doesn't give any errors. <code class="themable
+function">greet</code> is then executed with the <code class="themable
+variable">friend</code> variable set to <code class="themable
+string">"Bert"</code>. It prints <code>A warm welcome to...</code>
+followed by <code>Bert</code>. After that we reach the end of the <code
+class='themable function'>greet</code> function, so we go back to <code
+class='themable function'>main</code>.
+</p><p>
+Immediately after, <code class='themable function'>greet</code> is called
+again, but this time the <code class='themable variable'>friend</code> argument
+receives the value <code class='themable string'>"Ernie"</code>. So
+when executing, it now prints <code>A warm welcome to... Ernie</code> instead.
+</p><p>
+Functions can take any amount of arguments, and they don't have to be of the
+same type. If you really need to, you can make very long functions, like this
+monstrosity from the Flutter framework.
+<dart>
+createLabelWrap(String label, int itemCount, Button childButton, Padding padding, Margins margins, bool hasBorder, bool scrollable, bool isFilled, Color fillColor) {
+  // I omitted the actual code, it's quite complicated
+}
+</dart>
+If you have more than one argument, don't forget to separate them with commas!
+</p>
+<h3>Return Types</h3>
+<p>
+That's great and all, but what if we want to make a function do something,
+<i>and get back the result</i>? That is done through <b>return types</b>. Let's
+consider this function that adds 2 numbers:
+<dart>
+main() {
+  add(2, 3);
+  // how do we retrieve the result here?
+}
+
+add(int a, int b) {
+  int sum = a + b;
+}
+</dart>
+We need to do 2 things. First, we of course need to specify the data type of
+the variable we want to return. In this case, we want to return an <code
+class='themable class'>int</code>. This is specified by putting the data type
+(in this context, we call it the 'return type') in front of the function name:
+<dart>
+int add(int a, int b) {
+  int sum = a + b;
+}
+</dart>
+If you try this in DartPad, you will notice it's giving us a warning. That's
+because we promised to return an <code class='themable class'>int</code>, but
+we haven't returned anything yet! To return the calculated sum, we have to use
+the <code class='themable keyword'>return</code> keyword, followed by an
+expression that resolves to a value of our return type. We can simply use the
+<code class='themable variable'>sum</code> variable we created.
+<dart>
+int add(int a, int b) {
+  int sum = a + b;
+  return sum;
+}
+</dart>
+Since <code class='themable keyword'>return</code> accepts expressions, we can
+even write this shorter, since <code>a + b</code> resolves to an <code
+class='themable class'>int</code>:<dart>
+int shorterAdd(int a, int b) {
+  return a + b;
+}
+</dart>
+
+<div class="themable remark">If you don't specify any return type, there is a
+  default data type called <code class='themable keyword'>void</code>. This
+  type means that the function returns no value at all. So far none of the
+  examples had a return type, so Dart automatically assumes we don't return
+  anything and fills in the <code class='themable keyword'>void</code> behind
+  the scenes. For example, you can write the main function like this as well:
+  <dart>
+void main() {
+
+}
+</dart>
+</div>

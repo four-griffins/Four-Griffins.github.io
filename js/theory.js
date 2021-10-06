@@ -51,8 +51,22 @@ function changeArticle(nr) {
   getArticle.open('GET', `theory/${articles[index].split('::')[0]}.html`);
   getArticle.send();
 
-  document.getElementById('name-prev').innerText = index > 0 ? articles[index-1].split('::')[1] : '';
-  document.getElementById('name-next').innerText = index+1 < articles.length ? articles[index+1].split('::')[1] : '';
+  if (index > 0) {
+    document.querySelector('#label-prev').style.visibility = "visible";
+    document.getElementById('name-prev').innerText = articles[index-1].split('::')[1];
+  } else {
+    document.querySelector('#label-prev').style.visibility = "hidden";
+    document.getElementById('name-prev').innerText = '';
+  }
+
+  if (index < articles.length - 1) {
+    document.querySelector('#label-next').style.visibility = "visible";
+    document.getElementById('name-next').innerText = articles[index+1].split('::')[1];
+  } else {
+    document.querySelector('#label-next').style.visibility = "hidden";
+    document.getElementById('name-next').innerText = '';
+  }
+
   document.title = `${articles[index].split('::')[1]} - Four's Coding Class`;
 }
 
@@ -73,7 +87,7 @@ window.onload =  () =>  {
 
   const indexhttp = new XMLHttpRequest();
   indexhttp.onload = () => {
-    articles = indexhttp.response.split('\n');
+    articles = indexhttp.response.split('\n').filter((i) => !i.startsWith("//"));
     articles.pop();
     const sidebar = document.getElementById('drawer');
     for (let i = 0; i < articles.length; i++) {

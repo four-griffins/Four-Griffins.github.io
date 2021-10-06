@@ -21,11 +21,11 @@ main() {
   //int b = 4;
   // notice how the code is also grey, because it is commented out
   print(a + b);
-  /* this is a block comment, so this line is also commented out
+  /* this is a block comment, which means that
+    this second line is also commented out
     this is very useful to quickly disable a big batch of code,
-    or for longer explanations. I will use this to point out that
-    text comments often have a space after the slashes, but commented
-    code does not.
+    or for longer explanations if you have a particularly complicated
+    part of code.
   */
   print(a - b);
 }
@@ -77,13 +77,14 @@ main() {
 class Tile {
   int? x;
   int? y;
-  //variables are declared on a separate line, even when very short
+  //properties are declared on a separate line, even when very short
 
   Tile(this.x, this.y);
   // the usual order in a class is:
   // first fields, then constructors, and functions last
   
   bool isBlack() { return (x + y)?.isEven(); }
-  // if a function is very short, you can put it on one line
+  // if a function is very short, you can put it on one line,
+  // with a space between the braces and the code
 }
 </dart>
