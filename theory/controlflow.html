@@ -1,0 +1,244 @@
+<h2>Control Flow</h2>
+<p>
+Up to this point, our program does the exact same thing every time. But that's
+rarely the case for actual programs, they constantly change depending on the
+input they receive. This is done through control flow operations.
+</p>
+<h3>The If Statement</h3>
+<p>
+First off, let's take a look at a very common use case: we want some code to
+run only if a certain condition is met. This is done with the <code
+class='themable keyword'>if</code> statement.
+<dart>
+if (<boolean expression>) {
+  <instructions>
+}
+</dart>
+As you can see, an <code class='themable keyword'>if</code> statement is very similar to a function, so make sure not to confuse them!
+</p><p>
+The &lt;boolean expression&gt; can be any expression that results in either <code class='themable literal'>true</code> or <code class='themable literal'>false</code>. If the result is <code class='themable literal'>true</code>, the instructions between the braces will be executed, and if the result is <code class='themable literal'>false</code> the whole block will be skipped. Time for an example!
+<dart>
+main() {
+  int jerry = 17;
+  int bert = 34;
+  int sophie = 19;
+
+  print("Jerry wants to enter");
+  checkAge(jerry);
+
+  print("Bert wants in too");
+  checkAge(bert);
+
+  print("Sophie as well");
+  checkAge(sophie);
+}
+
+checkAge(int age) {
+  if (age > 18) {
+    print("You are old enough to enter!");
+  }
+}
+</dart>
+The <code class='themable keyword'>if</code> statement in the <code
+  class='themable function'>checkAge</code> function has the condition
+<code>age > 18</code>. First, we call the function with <code class='themable
+  variable'>jerry</code>, who is 17, so <code class='themable
+  variable'>age</code> gets the value 17. 17 is not greater than 18, so the
+condition is <code class='themable literal'>false</code>, and the code block
+with the <code class='themable function'>print</code> in it is not executed.
+</p><p>
+Then, we call <code class='themable function'>checkAge</code> again, this time
+with 34. Since 34 is more than 18, the expression evaluates to <code
+class='themable literal'>true</code>, and the whole block (including the <code class='themable
+function'>print</code>) is executed.
+</p>
+<div class="themable remark">
+  <h3>Comparison Operators</h3>
+  It's good to know some operators that give a <code
+    class='themable class'>bool</code> as a result, because there aren't that
+  many of them and we will use them quite often. Here are some comparisons between numbers (<code class='themable class'>int</code> and <code class='themable class'>double</code>):
+  <ul>
+    <li>a == b: returns <code class='themable literal'>true</code> if a and b are the same. Note the double equal signs, it doesn't work with a single sign, since that is already an assignment!</li>
+    <li>a != b: returns <code class='themable literal'>true</code> if a and b are not the same.</li>
+    <li>a &gt; b: returns <code class='themable literal'>true</code> if a is larger than b.</li>
+    <li>a &gt;= b: the same as a &gt; b, but also returns true if a and b are the same.</li>
+    <li>a &lt; b: returns <code class='themable literal'>true</code> if a is smaller than b.</li>
+    <li>a &lt;= b: the same as a &lt; b, but also returns true if a and b are the same.</li>
+  </ul>
+  And here are some things you can do with two <code class='themable class'>bool</code>s as arguments:
+  <ul>
+    <li>a && b: the <i>and</i> operator. Only returns <code class='themable literal'>true</code> only if both a and b are true.</li>
+    <li>a || b: the <i>or</i> operator. Returns <code class='themable literal'>true</code> if either a or b is <code class='themable literal'>true</code>, and also if both are <code class='themable literal'>true</code>.</li>
+    <li>!a: the negation operator. It means the opposite of the given input, so if a is <code class='themable literal'>true</code>, then the result is <code class='themable literal'>false</code>, and vice versa.</li>
+  </ul>
+  These boolean operators are useful to check multiple conditions at the same time, for example to check if a number lies between 12 and 18:
+  <dart>
+if (age > 12 && age < 18) {
+  print("You are a teenager!");
+}
+</dart>
+</div>
+</p>
+<h3>What Else?</h3>
+<p>
+<code class='themable keyword'>if</code> statements are nice, but what if we
+want the code to choose one of two paths based on a condition? This can be done
+by putting one path in an <code class='themable keyword'>if</code> statement
+that checks the condition, and then the other path in another <code
+class='themable keyword'>if</code> that checks the opposite of the condition,
+but this is not a good solution, especially when the condition is very
+complicated or changes regularly while the program is being developed. For
+that, there is simply the <code class='themable keyword'>else</code> keyword,
+which goes behind an <code class='themable keyword'>if</code> statement.
+<dart>
+if (age > 18) {
+  print("you are old enough to enter!");
+} else {
+  print("I'm sorry, but you are too young!");
+}
+</dart>
+An <code class='themable keyword'>else</code> block can only come after an
+<code class='themable keyword'>if</code> statement, and it will only run when
+the condition of that <code class='themable keyword'>if</code> statement is
+<code class='themable literal'>false</code>. This means that - as the name
+suggests - it will be executed only in the case that the <code class='themable
+keyword'>if</code> statement is <b><i>not</i></b> executed. Think "if the
+condition is true, execute this, else execute that".
+</p>
+<h3>Chaining With Else If</h3>
+<p>
+Next up are situations where something falls in one of a few categories, and we need to check which one exactly. With the tools we have now, this can be done as follows:
+<dart>
+if (age > 6) {
+  print("toddler");
+} else {
+  if (age > 12) {
+    print("child");
+  } else {
+    if (age > 20) {
+      print("teenager");
+    } else {
+      if (age > 65) {
+        print("adult");
+      } else {
+        print("senior");
+      }
+    }
+  }
+}
+</dart>
+As you can see, this becomes very messy very quickly when you add more cases.
+Luckily, there's a better option. Instead of giving a block of curly braces to
+<code class='themable keyword'>else</code>, you can give it another <code
+class='themable keyword'>if</code> directly with a new condition. This way,
+when the first <code class='themable keyword'>if</code> condition is false, the
+code goes via the <code class='themable keyword'>else</code> straight to the
+second <code class='themable keyword'>if</code>. When we do it like that, our
+code becomes much easier to read:
+<dart>
+if (age > 6) {
+  print("toddler");
+} else if (age  12) {
+  print("child");
+} else if (age > 20) {
+  print("teenager");
+} else if (age > 65) {
+  print("adult");
+} else {
+  print("senior");
+}
+</dart>
+Okay, maybe not that much easier to read, but at least it's a lot more organised now.
+</p>
+<h3>Looping With While</h3>
+<p>
+<code class='themable keyword'>while</code> loops are an incredibly powerful tool to automate things within your code. Up
+to this point, when we want output, we have to manually write the code that
+produces it. But with loops, we can repeat code any amount of times, opening
+the door to automatically generating lots of output!
+</p><p>
+It works like this: the <code class='themable keyword'>while</code> loop, just
+like the <code class='themable keyword'>if</code> statement, takes a condition
+between round brackets, and then a block of code in curly braces. If the
+condition is <code class='themable literal'>true</code>, the block is executed,
+just like <code class='themable keyword'>if</code>, but then the condition is
+checked again, and if it's still true the block is run again, and back to the
+condition, and so on. The <code class='themable keyword'>while</code> loop
+keeps executing it's block of code, checking the condition every cycle, until
+the condition becomes <code class='themable keyword'>false</code>. Then it
+stops, and the code continues after the loop.
+<dart>
+int counter = 0;
+while (counter < 5) {
+  print(counter);
+  counter = counter + 1;
+}
+print("we are done with the loop!");
+/* output:
+   0
+   1
+   2
+   3
+   4
+   we are done with the loop!
+*/
+</dart>
+</p>
+<div class='themable remark'>
+<h3>Infinite Loops</h3>
+This raises an important problem - what if the condition never becomes <code
+  class='themable literal'>false</code>? The answer depends on where you run
+the code. On the locally installed version of Dart, the program will hang
+forever and likely pin one of the cores of your CPU to 100&percnt; usage, until
+you forcefully stop it. If you run it on DartPad, it will freeze the website
+for a while. Always be careful when creating loops! ;)
+</div>
+<h3>Break and Continue</h3>
+<p>
+Sometimes, your condition is quite complicated, too complicated to put into a
+single boolean expression. For those cases, there are two handy features in the
+form of <code class='themable keyword'>break</code> and <code class='themable
+keyword'>continue</code>. When a <code class='themable keyword'>break</code>
+statement is reached, the program will immediately stop the loop, and jump to
+the next code after the loop. The <code class='themable
+keyword'>continue</code> on the other hand, doesn't stop the entire loop, but
+only the current iteration - i.e. the program jumps back from the <code
+class='themable keyword'>continue</code> to the condition of the <code
+class='themable keyword'>while</code> loop. You could think of it like this:
+both <code class='themable function'>break</code> and <code class='themable
+keyword'>continue</code> jump back to the top, to check the loop condition.
+<code class='themable keyword'>continue</code> evaluates the condition
+normally, but <code class='themable keyword'>break</code> always assumes the
+condition is <code class='themable literal'>false</code>, and thus continues
+the program below the loop.
+<dart>
+main() {
+  int index = 0;
+  while (true) {
+    if (index == 3) {
+      continue;
+    }
+    if (index == 7) {
+      break;
+    }
+
+    print(index);
+  }
+}
+/* output:
+   0
+   1
+   2
+   4
+   5
+   6
+*/
+</dart>
+</p>
+
+<h3>Well Done!</h3>
+<p>
+Phew, that was a long chapter! There is still more to be told about loops, but
+i think it's a good idea to bring some variation and talk about something else
+first, so the next chapter is going to be about classes instead.
+</p>
