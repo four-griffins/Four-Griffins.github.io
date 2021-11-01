@@ -120,6 +120,11 @@ fn tokenize(code: String) -> String {
                 result += "<span class='themable operator'>(</span>";
                 start = i + 1;
             },
+            ":" => {
+                tokenize_word(&code, &mut result, start, i, "comment");
+                result += "<span class='themable operator'>:</span>";
+                start = i + 1;
+            },
             "<" => {
                 tokenize_word(&code, &mut result, start, i, "variable");
                 result += "<span class='themable operator'>&lt;</span>";
@@ -142,7 +147,7 @@ fn tokenize_word(code: &str, result: &mut String, start: usize, i: usize, class:
         if first.is_uppercase() { *result += "<span class='themable class'>"; }
         else {
             match word {
-                "if" | "else" | "while" | "void" | "class" | "extends" | "for" | "this" | "return" | "in" => *result += "<span class='themable keyword'>",
+                "if" | "else" | "while" | "void" | "class" | "extends" | "for" | "this" | "return" | "in" | "late" => *result += "<span class='themable keyword'>",
                 "bool" | "int" | "double" => *result += "<span class='themable class'>",
                 "true" | "false" | "@override" => *result += "<span class='themable literal'>",
                 _ if word.chars().all(char::is_numeric) => *result += "<span class='themable literal'>",

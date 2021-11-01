@@ -1,0 +1,85 @@
+<h2>Classes</h2>
+<p>
+So far I haven't talked about classes, despite them being a core part of almost
+any language after the invention of Java. High time to get started then! A
+basic class looks like this:
+<dart>
+class Person {
+
+}
+</dart>
+This defines a class called <code class='themable class'>Person</code>. What do
+we use it for, I hear you ask? Well, classes are another tool to organise
+logical parts of code, by allowing classes to contain both variables and
+functions. This way, classes are a decent abstractions of real-life objects: a
+real person has information (like their name, age, gender, or current job) and
+have 'functions' (eat food, say something, take 10 steps forward). By making
+classes represent objects, it becomes easier to imagine how the different parts
+of the program interact with each other. 
+<dart>
+class Person {
+  String name = "";
+  int energy = 100;
+
+  greet() {
+    print("hello! My name is" + name);
+  }
+
+  doTask(int energyCost) {
+    energy = energy - energyCost;
+  }
+}
+</dart>
+<div class="themable remark">
+  Variables declared inside a class like this are called "properties" or "fields".
+</div>
+The <code class='themable class'>Person</code> class now has 2 properties and 2
+functions: every <code class='themable class'>Person</code> has a name and some
+energy, and they can say a greeting or perform a task, which takes some of
+their energy away. Now let's see how we can actually use this class. A class is
+basically a data type, so now we can create variables of type <code
+class='themable class'>Person</code>, in much the same way as how we created
+variables of type <code class='themable class'>int</code> before.<br>Now, how
+do we create values of type <code class='themable class'>Person</code>?
+<dart>
+main() {
+  Person adam = Person();
+}
+</dart>
+Be careful not to forget the round brackets after the <code class='themable
+class'>Person</code>; we will learn why they are there in a later chapter. When
+creating a variable that has some <code class='themable keyword'>class</code>
+as its type, this variable is called an <b>instance</b> of the class, or an
+object of that type. So in the example code above, <code>adam</code> is an
+instance of the class <code class='themable class'>Person</code>. This is a
+tricky but important thing to understand though: <i>properties and functions
+  belong to instances of a class, not the class itself</i>. I cannot access the
+<code class="themable variable">name</code> of the <code class='themable
+class'>Person</code> class, or call its <code class='themable
+function'>greet</code> function.  However, when I created the instance <code
+class='themable variable'>adam</code>, it receives its own <code
+class='themable variable'>name</code> and <code class='themable
+function'>greet</code> and so on.  Therefore, calling the <code class='themable
+function'>greet</code> of one instance might have a completely different result
+than the <code class='themable function'>greet</code> of another instance,
+because the two functions might use properties that are different for the two
+instances.
+</p>
+<h3>The Dot Operator</h3>
+<p>
+After creating an object, we would of course like to access its properties
+and functions. For that we use the dot operator: type the name of the variable,
+then a period, and then the name of the property or function you want. The dot
+operator is also the only one that we don't put spaces around.
+<dart>
+main() {
+  Person adam = Person();
+  adam.name = "Adam";
+  adam.greet();
+
+  Person bella = Person();
+  bella.name = "Bella";
+  bella.greet();
+}
+</dart>
+</p>

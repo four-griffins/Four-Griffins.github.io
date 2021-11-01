@@ -1,0 +1,167 @@
+<h2>Constructors</h2>
+<p>
+We have learnt about classes as a way to group data more conveniently, but if
+the class contains a lot of properties, it's a lot of work to set them to the
+desired values one by one. You could get around this by writing a function that
+will automatically fill in all the properties of the class that you want to
+fill in. Congratulations, you just reinvented constructors!
+</p><p>
+Constructors are, as the name suggests, functions meant to 'construct' the
+object, in other words fill in the values for all the properties and do any
+other setup that needs to be done before the object is usable. In Dart (and in
+Java) they are written in a peculiar way: they have the
+same name as the class itself (which means it starts with a capital) and they
+don't return anything. Here is a class representing a two-dimentional point as
+an example:
+<dart>
+class Point {
+  double x = 0;
+  double y = 0;
+
+  Point(double newX, double newY) {
+    x = newX;
+    y = newY;
+  }
+}
+</dart>
+This code will work fine, and it will set the two coordinates. You even know
+how to call this already: every time we created a class with
+<code>&lt;classname&gt;()</code>, we are actually calling the constructor. (If
+you don't write a constructor yourself, Dart will add one that doesn't take any
+arguments.) So this is what it looks like with our custom constructor:
+<dart>
+main() {
+  Point p = Point(2, 4);
+}
+</dart>
+It mostly works like a normal function, except the capital, and the fact that
+you don't return anything.
+</p>
+<h2>...But How About Some Nicer Code</h2>
+<p>
+The way I wrote this example above is... quite bad. There are various standards
+of how to write constructors that I didn't follow, and we will go over them one
+by one.
+</p>
+<h3>The <code class='themable keyword'>this</code> keyword</h3>
+<p>
+<code class='themable keyword'>this</code> is only used in classes. It's a
+keyword that an instance can use to get a reference to itself. The main use is
+when you have a property in a class that shares its name with an argument of a
+function in that same class. By default, just putting in the name by itself
+will prioritise the argument over the property (because it is in the inner
+scope). By using <code class='themable keyword'>this</code>, you can access the
+property as well. In our case this means that we don't have to come up with
+weird names for the arguments of the constructor, we can just use the same
+names as the properties we assign them to.
+</p><dart>
+class Point {
+  double x = 0;
+  double y = 0;
+
+  Point(double x, double y) {
+    this.x = x;
+    this.y = y;
+  }
+}
+</dart>
+<h3>Automation!</h3>
+<p>
+This pattern emerges a lot, where you have an argument in the constructor, and
+immediately pass it to a field with the same name. In fact, it's so common that
+Dart provides a way to cut out the middleman: you can put the <code
+class='themable keyword'>this</code>.<variable> directly between the brackets
+of the constructor, and they will automagically be assigned to the properties.
+<dart>
+class Point {
+  double x;
+  double y;
+
+  Point(this.x, this.y);
+}
+</dart>
+Not only is this much cleaner, but it also solves another implicit problem:
+note how I no longer need to give a value to <code class='themable
+variable'>x</code> and <code class='themable variable'>y</code>, even though
+<code class='themable class'>double</code> is not a nullable type. If you write
+it this way, Dart knows that <code class='themable variable'>x</code> and <code
+class='themable variable'>y</code> will always receive a value before they are
+used, because the constructor will always be run before anything else. <br/>
+On top of that, the constructor now has an empty body, and in such cases we are
+allowed to leave out the brackets and replace them with a semicolon instead.
+</p>
+<h3>What if we need to calculate things?</h3>
+<dart>
+class Point {
+  double x;
+  double y;
+  double? distanceToCenter;
+
+  Point(this.x, this.y) {
+    distanceToCenter = math.sqrt(x*x + y*y);
+  }
+}
+</dart>
+<p>
+What if I also want to store the distance to the point (0, 0)? This value is
+not passed to the constructor but calculated, and that's a problem, because
+Dart doesn't let me make it a non-nullable variable. However, in the case that
+you don't want to deal with nullable variables, and you also don't want to come
+up with a default value. For this specific case, there is actually a keyword:
+<code class='themable keyword'>late</code>. It means that a variable will get a
+value, but it will not be initialized using the <code class='themable
+keyword'>this</code><code>.&lt;name&gt;</code> syntax. Be careful in using this
+though, since you're basically giving up null safety: if the variable doesn't
+get initialized correctly before it is used, the program will crash.
+<dart>
+class Point {
+  double x;
+  double y;
+  late double distanceToCenter;
+
+  Point(this.x, this.y) {
+    distanceToCenter = math.sqrt(x*x + y*y);
+  }
+}
+</dart>
+<h3>Named Constructors</h3>
+<p>
+Dart doesn't allow for multiple functions with the same name, and constructors
+are no exception. However, unlike normal functions, you can't exactly choose a
+different name - it's a constructor, it <i>has</i> to have the same name as the
+class. That's why the Dart developers chose to add <b>named constructors</b>, a
+feature that not many other languages have, to solve this.
+<dart>
+class Point {
+  late double x;
+  late double y;
+
+  Point(this.x, this.y);
+
+  Point.horizontal(this.x) {
+    this.y = 0;
+  }
+
+  Point.vertical(this.y) {
+    this.x = 0;
+  }
+}
+
+main() {
+  Point a = Point(2, 3);
+  Point b = Point.vertical(2.4);
+  Point c = Point.horizontal(7);
+}
+</dart>
+Maybe a dumb example, but you get the point: you can have multiple constructors
+that initialize the object in a different way.
+<div class='remark'>
+  An example of a commonly used named constructor is <code class='themable
+  class'>List</code>.<code class='themable function'>filled</code><code
+  class='themable operator'>()</code>. Using the standard constructor <code
+  class='themable class'>List</code><code class='themable operator'>()</code>
+  has been discouraged for a while, and the <code class='themable
+  class'>List</code> class offers a few named constructors that let you build
+  and fill lists dynamically.
+</div>
+</p>

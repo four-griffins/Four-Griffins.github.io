@@ -1,0 +1,112 @@
+<h2>Null Safety</h2>
+<p>
+If you ever tried putting this code into Dart:
+<dart>
+main() {
+  int num;
+  print(num + 2);
+}
+</dart>
+you will have noticed that by default, Dart gives you an error, saying that
+"non-nullable values must be assigned before they can be used". Apart from the
+word 'non-nullable' this makes intuitive sense; we can't really print the
+contents of <code class='themable variable'>a</code> if <code class='themable
+variable'>a</code> doesn't contain anything, so most languages are made in such
+a way that you can never have an 'empty' variable the moment you want to use
+it. But it hasn't always been like that. Almost any programming language
+created before the year 2000 (including C, C++, C#, Java and even early
+versions of Dart) had a special value that could be assigned to any kind of
+variable: <code class='themable literal'>null</code>. This value meant that the
+variable is empty, and all new variables would get assigned <code
+class='themable literal'>null</code> by default unless you specifically give
+them a value.
+</p><p>
+The obvious problem with this is, of course, what happens if you try to use a
+variable set to <code class='themable literal'>null</code>? There is no way to
+add 2 to nothing like I am trying in the example, so Dart will simply refuse to
+run this code. This is actually a good idea: imagine if Dart didn't warn you
+about this, and you are writing a program of hundreds of lines of code, and
+somewhere in it you accidentally forgot to initialise a variable. It would take
+ages to find the problem, and debugging would be very frustrating.
+</p><p>
+However, sometimes it makes sense to have a variable that may or may not be
+empty. For example, imagine a turn based game where players can skip their
+turn. You could represent skipped turns by the value <code class='themable
+literal'>null</code>. Or, use <code class='themable literal'>null</code> to
+represent the empty squares when making a chess board. To achieve this, Dart
+provides <b><i>nullable types</i></b>.
+<dart>
+class Rectangle {
+  double? width;
+  double? height;
+}
+</dart>
+Here, the type of <code class='themable variable'>x</code> and <code
+  class='themable variable'>y</code> is not <code class='themable
+  class'>double</code>, but <code class='themable class'>double?</code>. The only
+difference is that <code class='themable class'>double?</code> is allowed to
+contain <code class='themable literal'>null</code>, whereas <code
+class='themable class'>double</code> is not. This means that the above code, where
+we don't initialize <code class='themable variable'>x</code> and <code
+class='themable variable'>y</code> is valid, because Dart will set them to
+<code class='themable literal'>null</code> by default. However, be careful when
+using these variables, you have make sure they aren't <code class='themable
+literal'>null</code> before using them!
+<dart>
+class Rectangle {
+  double? width;
+  double? height;
+
+  double? length() {
+    if (width != null && height != null) {
+      return width! * height!;
+    }
+  }
+}
+</dart>
+Did you notice the exclamation marks behind <code class='themable
+  variable'>width</code> and <code class='themable variable'>height</code>?
+This is a special operator called the null assert operator. It can be used to
+turn a nullable variable in a non-nullable variable, by returning the value if
+the variable is not <code class='themable literal'>null</code>... and crashing
+the program if it is. So yes, it's still important to make sure the variables
+you're using aren't <code class='themable literal'>null</code>.
+</p>
+<h3>The null-aware operaors</h3>
+<p>
+However, there are a few more operators that allow us to more easily work with
+nullable variables. For example, let's say that you want to do something wit a
+value, but if it is <code class='themable literal'>null</code>, there should be
+a default value in it's place. This can be achieved like this:
+<dart>
+main() {
+  int? a = null;
+  int b = a ?? 2; // b is now 2
+}
+</dart>
+Accessing a property or function of an instance will crash if the instance is
+<code class='themable literal'>null</code>. Luckily we don't have to put an
+entire <code class='themable keyword'>if</code> check around it, because there
+is a shorthand:
+<dart>
+bert?.sayHello();
+// if bert is not null, sayHello will run,
+// else nothing will happen
+
+//these can even be chained!
+print(bert?.father?.address?.streetNumber ?? -1)
+// this will print the street number of bert's father,
+// but if anything in the chain is null, it will default to -1
+</dart>
+And last but not least, Dart has a variant of the assign operator that only
+works if the variable is <code class='themable literal'>null</code>.
+<dart>
+int? a;
+int? b = 4;
+a ??= 2; // a is null, so 2 gets assigned
+b ??= 2; // b already has a vallue so it gets skipped
+
+print(a); // output is 2
+print(b); // output is 4
+</dart>
+</p>

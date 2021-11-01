@@ -1,0 +1,120 @@
+<h2>Optional Arguments</h2>
+<p>
+Time to talk about a feature that is pretty specific to Dart. Optional
+arguments are exactly what you think they are - arguments for functions that
+are optional, meaning that you can choose to leave them out. The reason why
+Google chose to make these an important feature of Dart, is because straight
+from the beginning Dart was meant to be used for graphical interfaces. A lot of
+functions of graphical components have a ridiculous amount of customisation
+options, all of which you can specify through arguments. If you had to write
+every argument every time, your code would look really messy.
+</p>
+<h3>But First: Function Overloading</h3>
+<p>
+But even before Dart was created, languages had need of optional arguments
+sometimes. This course is meant to not just teach you about Dart, but about
+programming in general, so I would be a bad teacher if I didn't mention this.
+;)<br/> The most common way to do this is called <i>function overloading</i>.
+In short, the following code would be valid Java code:
+<dart>
+public void saveToFile(String data) {
+  // save the data to the default file
+}
+
+public void saveToFile(int data) {
+  // save the number to the default file
+}
+
+public void saveToFile(String data, File file) {
+  // save the data to the given file
+}
+</dart>
+Do you see it? Just ignore the 'public' for a moment - that's just how Java
+works - but notice how all these functions have the same name! How is this not
+an error? Because all of them have different types of arguments. The first
+function takes a <code class='themable class'>String</code>, the second one an
+<code class='themable class'>int</code>, and the third one a <code
+class='themable class'>String</code> and a <code class='themable
+class'>File</code>. If you were to call any of them like this:
+<dart>
+saveToFile(3427582);
+</dart>
+Java sees the integer value and knows to pick the version of <code
+class='themable function'>saveToFile</code> that takes an <code class='themable
+class'>int</code>. So as long as all the versions of the function have
+different types of arguments, it works.
+</p>
+<h3>The Dart Way</h3>
+<p>
+Unfortunately Dart doesn't have this functionality: every function needs a
+unique name (at least in the same scope). Luckily we have optional arguments!
+Let's say we want to make a function for accessing a webpage.
+<dart>
+main() {
+  search("cute dogs");
+  search("cute dogs", "google.com");
+  search("cute dogs", "google.com", 8080);
+}
+
+search(String searchTerm, [String site = "duckduckgo.com", int port = 443]) {
+  // fetch the webpage here
+}
+</dart>
+Once again we use the square brackets. Be careful though, this is not a list,
+don't confuse them! A list contains values, but the optional parameters between
+the square brackets are variables. However, since they may or may not receive a
+value from the code that calls them, they might be <code class='themable
+literal'>null</code> - which we can't allow since they are non-nullable types.
+That's why you need to give them a default value, in the same way that you
+assign a value to a normal variable. If the calling code doesn't provide a
+value for the optional argument, the default is used, but if there <i>is</i> a
+value provided, it will overwrite the default.
+</p>
+<h3>Named Arguments Are Better</h3>
+<p>
+Optional arguments are cool, but they have a very big drawback. Imagine that
+you want to use the <code class='themable function'>search</code> from above,
+but you only want to specify the search term and the port, not the site. But if
+you try this, you get an error!
+<dart>
+search("cute dogs", 8080);
+// Error: the argument type "int" can't be assigned to the parameter type "String"
+</dart>
+Because Dart sees one optional value and tries to assign it to the first
+optional argument. We need a way to say which value is for which argument - and
+lucky for us, this exists. Instead of using normal optional parameters, use
+named parameters.
+<dart>
+main() {
+  search("cute dogs");
+  search("cute dogs", site: "google.com");
+  search("cute dogs", site: "google.com", port: 8080);
+  search("cute dogs", port: 8080);
+}
+
+search(String searchTerm, {String site = "duckduckgo.com", int port = 443}) {
+  // fetch the webpage here
+}
+</dart>
+Very similar to optional arguments, but this time the optional section of the
+arguments is enclosed in curly braces, not rectangular ones. On top of that,
+now we have to specify the name of the argument that we want to bind every
+value to. The benefit of this is that we can specify any combination of named
+arguments in any order (except the mandatory ones, those still go first).
+</p><p>
+One place that makes a lot of use of this syntax is Flutter. For example, the
+function to create a pop-up dialog could be called like this:
+<dart>
+showDialog(
+  context: buildContext,
+  builder: () => warningDialog,
+  useSafeArea: true,
+  barrierDismissible: true,
+  barrierColor: Color.fromArgb(0, 200, 200, 180)
+);
+</dart>
+There's some things in there that you don't know, but those are besides the
+point. Just focus on how nicely organised and understandable this code is: not
+a meaningless list of <code class='themable literal'>true</code>s and <code
+class='themable literal'>false</code>s, it says what they do right there in the name.
+</p>

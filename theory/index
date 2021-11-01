@@ -4,4 +4,10 @@ formatting::Comments and Formatting
 variables::Variables and Expressions
 functions::Functions
 controlflow::If and While
-//test::Test
+classes::Classes
+nullsafety::Null Safety
+list::Lists and For Loops
+optionals::Optional Arguments
+constructors::Constructors
+//closures
+//dynamic

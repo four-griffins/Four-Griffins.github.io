@@ -14,7 +14,7 @@ main() {
 }
 </dart><div class='themable remark'>
 Remember, if a variable name is multiple words, they are glued together, and
-the first word is lowercase while the rest is uppercase. so "amount of legs"
+the first word is lowercase while the rest is uppercase. So "amount of legs"
 becomes "<span style='color: #55b'>a</span>mount<span style='color: #b44'>O</span>f<span style='color: #b44'>L</span>egs".
 </div><p>
 There are 4 statements in this code. In the first one, we create a variable named <code>amountOfLegs</code> and give it a value
@@ -30,7 +30,7 @@ Dart, like many other languages, is statically typed, which means that whenever
 you create a variable, you have to specify what type of data it stores, and you
 can only store values of that type. In the example above, this is done with the
 word <code class='themable class'>int</code>. This specifies that
-<code>amountOfLegs</code> can store integervalues (integers are whole numbers).
+<code>amountOfLegs</code> can store integer values (integers are whole numbers).
 Let's take this code as an example:
 </p><dart>
 main() {
@@ -54,7 +54,7 @@ So what types are there? Well, there are a few built-in types that we can use.
     point values like <code class='themable literal'>3.14</code>. Its name is
     derived from the fact that it takes twice as much memory space to store a
   single value compared to the <code class='themable class'>int</code>.</li>
-  <li><code class='themable class'>bool</code>, wich stores exactly 2 possible
+  <li><code class='themable class'>bool</code>, which stores exactly 2 possible
   values: <code class='themable literal'>true</code> and <code class='themable
 literal'>false</code>. These are used to create conditions, in case you only
 want to run code in certain circumstances.</li>
@@ -67,6 +67,19 @@ create yourself, so you can store any kind of data you want. Just like the
 <code>print</code> function, the <code class='themable class'>String</code>
 class is provided by Dart automatically.
 </p>
+<div class='themable remark'>
+<h3>The <code class='themable keyword'>var</code> keyword</h3>
+<p>
+There is another datatype-related keyword: <code class='themable
+  keyword'>var</code>. You can use <code class='themable keyword'>var</code>
+in place of the datatype when creating variables, and Dart will try to guess
+what type your variable needs to be based on what values you give it. (It's
+quite accurate, although in more complicated situations it might pull some
+shenanigans.) Although it's best practice to always specify the type of a
+variable, it can occasionally be nice when the type is very long, or if you are
+just too lazy to type it :P .
+</p>
+</div>
 <h3>Expressions</h3>
 <p>
 Now we know that assigning variables works in the following pattern:
@@ -77,7 +90,7 @@ resolved to a single value of the right type. For example, you can put a long
 calculation there.
 <dart>
 main() {
-  double a = (4 + 3) * 7.7 / 2.5 + 15;
+  double a = (4 + 3) * 7.7 / 2.5 - 15;
 }
 </dart>
 This whole calculation can be reduced to a single floating-point number, so
@@ -119,7 +132,7 @@ main() {
     // it's not very useful, but you can do it if you need to
 
     print(a);
-    // a is valid here, it's frome the scope around this one
+    // a is valid here, it's from the scope around this one
 
     String b = "inner";
     print(b);

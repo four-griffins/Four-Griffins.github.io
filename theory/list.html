@@ -1,0 +1,209 @@
+<h2>Lists</h2>
+<p>
+With the use of loops, we can dynamically change how many instructions we
+execute. But instructions are only half of the story: what about data? Well of
+course there is a way to store dynamic amounts of data. Several ways even, and
+each of them has its own use case. But by far the most simple one is the <code
+                                                                             class='themable
+                                                                             class'>List</code>
+class.
+</p><p>
+The <code class='themable class'>List</code> class is slightly different from
+the classes we talked about so far. See, in Dart, all variables need to have a
+datatype - as we already discussed before. So if you create a list. you need to
+explicitly say that it's a <code class='themable class'>List</code>. But what
+about the values that you store in the list? They are also variables, so they
+need to have a type too! To solve this issue, Dart makes use of an advanced
+concept called <i>generic types</i>. Generic types are a bit too complicated to
+explain now, but all you need to know now is how <code class='themable
+class'>List</code> uses them to define the datatype of the class.
+<dart>
+List<int> ages = [18, 22, 34, 70, 12];
+</dart>
+Look at the angled brackets: those are to indicate what type the list will
+store. In this case, it's a list of <code class='themable
+class'>int</code>s.<br/>
+Then we create a new list. Just like with <code class='themable
+class'>String</code>, a <code class='themable class'>List</code> has a literal
+notation, so you don't need to use <code class='themable
+class'>List</code><code class='themable operator'>()</code>. (It's technically
+possible, but don't use it, it's not recommended.)<br/> List literals use
+square brackets, followed by a list of items separated by commas. These items
+are optional - you can create an empty list with <code class='themable
+operator'>[]</code> - but evey item needs to be of the correct type, of course.
+Dart also doesn't care if there is a "trailing comma", an unnecessary comma
+after the last item in the list. This is useful for quickly copypasting code.
+<dart>
+main() {
+  List<bool> empty = [];
+  List<String> generated = [
+    "long string number 1",
+    "long string number 2",
+    "long string number 3",
+    "long string number 4",
+    "long string number 5",
+    "long string number 6",
+  ];
+}
+</dart>
+I just copypasted those strings and changed the number, without removing the
+redundant comma after the last string. Dart is smart enough to ignore it. Be
+careful though, a lot of languages don't do this!
+</p>
+<h3>Accessing a List</h3>
+<p>
+Accessing the items in a list is done like this:
+<dart>
+main() {
+  List<String> numbers = ["zero", "one", "two", "three", "four"];
+  String third = numbers[3];
+  print(third);
+}
+</dart>
+Once more we use square brackets, they are the typical sign of working with
+lists. Be careful though: the code above will output <code>three</code> because
+in programming languages, counting starts at 0. (In the list above, the
+elements are named after what place they are in.) This might seem
+counterintuitive at first, but decades of programming have shown that a lot of
+code can be made simpler if lists start at 0, so the majority of programming
+languages stick with that.
+</p><p>
+This also means that using the length of the list as an index is invalid: the
+list in the example has a length of 5, but the highest valid index is 4, so 1
+less than that. It is always true that the indices of the list range from 0 up
+to <b>but not including</b> the length of the list.
+</p><p>
+This is a good question though, what happens if you use an invalid index? Well,
+that will once more make the program crash. Interestingly, in the popular
+scripting language Python it's possible to use a negative index too, in which
+case the list will start counting from the tail end. But even then you need to
+make sure the index is larger than the inverse of the length.
+</p>
+<h3>Useful Functions of Lists</h3>
+<p>
+How do we get this length, I hear you ask? Very simple: through the <code
+class='themable variable'>length</code> property of <code class='themable
+class'>List</code>. And while we're at it, let's take a look at some other
+useful functions that <code class='themable class'>List</code> offers us.
+<dart>
+main() {
+  List<int> numbers = [2, 7, 4, 5, 1];
+
+  print(numbers.length);        // 5
+  print(numbers.sublist(1, 4));  // [7, 4, 5]
+  print(numbers.reversed));     // [1, 5, 4, 7, 2]
+  print(numbers.first);         // 2
+  print(numbers.last);          // 1
+  print(numbers.isEmpty);       // false
+  print(numbers.contains(7));   // true
+  print(numbers.indexOf(7));    // 1
+  print(numbers.join("--"));    // 2--7--4--5--1
+  /* Okay, this one needs some explanation. join() takes all elements in the
+     list, converts them to strings, and pastes them together with the given
+     string in between.
+  */
+
+  numbers.remove(5);
+  print(numbers);       // [2, 7, 4, 1]
+  numbers.removeAt(1);
+  print(numbers);       // [2, 4, 1]
+  numbers.add(19);
+  print(numbers);       // [2, 4, 1, 19]
+  numbers.insert(2, 50);
+  print(numbers);       // [2, 4, 50, 1, 19]
+  numbers.sort();
+  print(numbers);       // [1, 2, 4, 19, 50]
+  numbers.clear();
+  print(numbers);       // []
+}
+</dart>
+Phew, that's a lot! But don't worry about it, you don't need to know these, we
+will repeat them one at a time the moment we need them. This is just to show
+that <code class='themable class'>List</code> is filled with nice
+quality-of-life features.
+</p>
+<h3><code class='themable keyword'>for</code> Loops</h3>
+<p>
+Now that you know about lists, it's time to explain the other type of loop
+apart from the <code class='themable keyword'>while</code> loop. The first way
+to use it is like this.
+<dart>
+for (<instruction>; <condition>; <instruction>) {
+  <code>
+}
+</dart>
+This looks complicated, so let's break it down. The first instruction is
+executed once, right before the loop starts. The condition after that is
+evaluated at the beginning of every iteration, in exactly the same way that a
+<code class='themable keyword'>while</code> loop evaluates its condition. Then
+the block of code is run, and after that the last instruction is run, at the
+end of every iteration. This seems very strange and arbitrary, but the <code
+class='themable keyword'>for</code> loop was invented for a very specific use
+case: looping over all the values in a list.
+<dart>
+main() {
+  List<String> numbers = ["zero", "one", "two", "three", "four", "five"];
+
+  for (int i = 0; i < numbers.length; i++) {
+    String current = numbers[i];
+    print(current);
+  }
+}
+</dart>
+First, we create the variable <code class='themable variable'>i</code>. Why is
+it called <code class='themable variable'>i</code>? Well, it's just a
+convention to call variables you create in a <code class='themable
+keyword'>for</code> loop like that. You can decide to give it a more meaningful
+name within the context - like <code class='themable variable'>number</code> -
+but most programmers are lazy and will just use <code class='themable
+variable'>i</code>.
+</p><p>
+The condition here is checking if <code class='themable variable'>i</code>
+stays strictly smaller than the list length, because as I said before, the
+length itself is no longer a valid index.  And lastly, at the end of every loop
+we do <code class='themable variable'>i</code><code class='themable
+  operator'>++</code>. This is an operator that adds 1 to a variable, so it's
+just shorthand for <code>i = i + 1</code>.
+</p><p>
+All in all, that code does exactly the same thing as the following:
+<dart>
+main() {
+  List<String> numbers = ["zero", "one", "two", "three", "four", "five"];
+
+  int i = 0;
+  while (i < numbers.length) {
+    String current = numbers[i];
+    print(current);
+    i++;
+  }
+}
+</dart>
+In fact, for anything even slightly more complex than this use case, you should
+definitely use a <code class='themable keyword'>while</code> loop. Sure, the
+<code class='themable keyword'>for</code> is shorter, but it's also a lot less
+readable, and in a few months you will get angry at your past self for doing this.
+</p>
+<h3>Foreach Loops</h3>
+The real power of the <code class='themable keyword'>for</code> loop comes with
+the so-called <code>foreach</code>-loop. It's called this way because in Java
+(who was the first to introduce it) it used a special keyword, <code
+class='themable keyword'>foreach</code>, to separate it from the classic <code
+class='themable keyword'>for</code>.  Foreach loops are a much more elegant way
+to access the values of a list.
+<dart>
+main() {
+  List<String> numbers = ["zero", "one", "two", "three", "four", "five"];
+
+  for (String i in numbers) {
+    print(i);
+  }
+}
+</dart>
+This is much cleaner, isn't it? Note how last time <code class='themable
+variable'>i</code> was an <code class='themable class'>int</code>, but now it's
+a <code class='themable class'>String</code>, because in foreach loops, the
+index loops over the actual values in the list, and not just their positions.
+Since <code class='themable variable'>numbers</code> is a list of <code
+            class='themable class'>String</code>s, <code class='themable
+variable'>i</code> has to be a <code class='themable class'>String</code>.
+</p>
