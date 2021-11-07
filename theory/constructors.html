@@ -160,8 +160,15 @@ that initialize the object in a different way.
   class'>List</code>.<code class='themable function'>filled</code><code
   class='themable operator'>()</code>. Using the standard constructor <code
   class='themable class'>List</code><code class='themable operator'>()</code>
-  has been discouraged for a while, and the <code class='themable
-  class'>List</code> class offers a few named constructors that let you build
-  and fill lists dynamically.
+  has been discouraged for a while. For a list with specific items, use a literal
+  <code>[a, b, c]</code>, and for other options the <code class='themable
+  class'>List</code> class offers some useful named constructors. <code class='themable
+  class'>List</code>.<code class='themable function'>filled</code><code
+  class='themable operator'>()</code> for example lets you create lists of any length with a given value:
+  <dart>
+  main() {
+    List<bool> a = List.filled(10, false);
+  }
+  </dart>
 </div>
 </p>
