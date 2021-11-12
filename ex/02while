@@ -1,0 +1,78 @@
+<h2>3, 6, 9</h2>
+<p>
+Write some code that produces the following output: 0 3 6 9 12, with every number on a separate line.
+</p>
+<p>
+You <i>could</i> technically output the 5 values manually one by one. But
+that's not what the exercise is meant for, the idea is to create a setup that
+can easily be changed to generate any amount of output. If you don't know how to do this, try the hint button.
+</p>
+
+<pre>
+<code class="run-dartpad:mode-inline:theme-dark:null_safety-true:width-100%:height-30rem">
+
+{$ begin main.dart $}
+main() {
+
+
+  check();
+  //checkBonus();
+}
+{$ end main.dart $}
+{$ begin test.dart $}
+getInput() => _result(false, ["This exercise doesn't have any input."]);
+
+List&lt;dynamic&gt; results = [];
+output(dynamic a) { print(a); results.add(a); }
+
+check() {
+  if (results.isEmpty) { _result(false, ["Don't forget to output something!"]); }
+  else if (results.length > 5) { _result(false, ["Seems like you outputted too many numbers."]); }
+  else if (results.length &lt; 5 && results[0] != 0) { _result(false, ["You are missing the 0 at the start."]); }
+  else if (results.length &lt; 5 && results[results.length-1] != 12) { _result(false, ["You stopped too early, you are missing the 12."]); }
+  else {
+    var sol = [0, 3, 6, 9, 12];
+    for (int i = 0; i &lt; results.length; i++) {
+      if (results[i] != sol[i]) { _result(false, ["The output at index $i is wrong, it should be ${sol[i]} but is ${results[i]} instead."]); break; }
+      if (i == 4) { _result(true); }
+    }
+  }
+}
+
+checkBonus() {
+  if (results.isEmpty) { _result(false, ["Don't forget to output something!"]); }
+  else if (results.length &gt; 6 && results[0] == 0) { _result(false, ["You have a 0 at the front that you don't need."]); }
+  else if (results.length &gt; 6) { _result(false, ["That's too many numbers."]); }
+  else if (results.length &lt; 6 && results[results.length-1] != 16) { _result(false, ["You didn't get the 16 at the end."]); }
+  else {
+    var sol = [3, 6, 9, 12, 15, 16];
+    for (int i = 0; i &lt; results.length; i++) {
+      if (results[i] != sol[i]) { _result(false, ["The output at index $i is wrong, it should be ${sol[i]} but is ${results[i]} instead."]); break; }
+      if (i == 5) { _result(true); }
+    }
+  }
+}
+{$ end test.dart $}
+{$ begin hint.txt $}
+This can be done with a counter, and a while loop that increases the counter.
+{$ end hint.txt $}
+{$ begin solution.dart $}
+main() {
+  int counter = 0;
+  while (counter &lt; 13) {
+    output(counter);
+    counter += 3;
+  }
+  check();
+}
+</code>
+</pre>
+
+<h3>Bonus Question!</h3>
+<p>
+As a harder variant, change your code to produce 3 6 9 12 15 16, also on
+separate lines. You can check the modified output with <code class='themable
+function'>checkBonus</code><code class='themable operator'>()</code> - just
+make sure to remove the <code class='themable function'>check</code><code
+class='themable operator'>()</code> first.
+</p>

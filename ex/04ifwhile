@@ -1,0 +1,50 @@
+<h2>If and While</h2>
+<h3>1. If</h3>
+<p>
+Rewrite the <code class='themable function'>bouncer</code> function from the
+previous exercise, but this time if the given person is younger than 18, output
+"You are too young", else output "You are old enough". You don't need to return
+anything.
+</p>
+
+
+<pre>
+<code class="run-dartpad:mode-inline:theme-dark:null_safety-true:width-100%:height-30rem">
+{$ begin main.dart $}
+bouncer() {
+  
+}
+{$ end main.dart $}
+{$ begin test.dart $}
+List<dynamic> results = [];
+output(dynamic a) { print(a); results.add(a); }
+
+main() {
+  bouncer(17);
+  _check(false);
+  bouncer(18);
+  _check(true);
+  bouncer(19);
+  _check(true);
+}
+
+_check(bool answer) {
+  if (results.isEmpty) { _result(false, ["Don't forget to output something!"]); }
+  else if (results.last != 'You are too young' && !answer) { _result(false, ["${results.last} is too young to enter."]); }
+  else if (results.last != 'You are old enough' && answer) { _result(false, ["${results.last} is old enough to enter."]); }
+  else { _result(true); }
+}
+{$ end test.dart $}
+{$ begin solution.dart $}
+bouncer(int age) {
+  if (age < 18) {
+    output("You are too young");
+  } else {
+    output("You are old enough");
+  }
+}
+{$ end solution.dart $}
+</code>
+</pre>
+
+

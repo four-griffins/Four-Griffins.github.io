@@ -1,0 +1,96 @@
+<h2>Variables and Expressions</h2>
+<h3>Creating and Assigning Variables</h3>
+<p>
+In this exercise, you get an input value of type <code class='themable
+class'>int</code> from <code class='themable function'>getInput</code>, that
+represents someone's age. You have to return how old the person is in 4 years.
+</p>
+
+<pre>
+<code class="run-dartpad:mode-inline:theme-dark:null_safety-true:width-100%:height-30rem">
+{$ begin main.dart $}
+main() {
+  
+
+  check();
+}
+{$ end main.dart $}
+
+{$ begin test.dart $}
+int getInput() => 65;
+
+List<dynamic> results = [];
+output(dynamic a) { print(a); results.add(a); }
+
+check() {
+  if (results.isEmpty) { _result(false, ["Don't forget to output something!"]); }
+  else if (results[0] == 65) { _result(false, ["Don't forget to add 4."]); }
+  else if (results[0] > 69) { _result(false, ["That's too old."]); }
+  else if (results[0] < 69) { _result(false, ["That's too young."]); }
+  else { _result(true); }
+}
+{$ end test.dart $}
+
+{$ begin hint.txt $}
+get the input like this: int input = getInput();
+{$ end hint.txt $}
+
+{$ begin solution.dart $}
+main() {
+  int input = getInput();
+  input = input + 4; // shorthand for this is: input += 4;
+  output(input);
+  check();
+}
+{$ end solution.dart $}
+</code>
+</pre>
+
+<h3>Expressions</h3>
+<p>
+Call the <code class='themable function'>getInput</code> function twice, it
+will return two <code class='themable class'>String</code>s. Output the strings
+glued together, with a space in between.
+</p>
+
+<pre>
+<code class="run-dartpad:mode-inline:theme-dark:null_safety-true:width-100%:height-30rem">
+{$ begin main.dart $}
+main() {
+  
+
+  check();
+}
+{$ end main.dart $}
+
+{$ begin test.dart $}
+int ind = 0;
+var words = ["good", "luck"];
+String getInput() => ind < 2 ? words[ind++] : '';
+
+List<dynamic> results = [];
+output(dynamic a) { print(a); results.add(a); }
+
+check() {
+  if (results.isEmpty) { _result(false, ["Don't forget to output something!"]); }
+  else if (results.length > 1 && results[0] != 'good luck') { _result(false, ["Don't output the words separately, you have to combine them into a single output."]); }
+  else if (results[0] == 'goodluck') { _result(false, ["You forgot the space in the middle."]); }
+  else if (results[0] != 'good luck') { _result(false, ["Double-check how you are concatenating the strings, there only needs to be a space."]); }
+  else { _result(true); }
+}
+{$ end test.dart $}
+
+{$ begin hint.txt $}
+You can combine strings together with the plus symbol: "a" + "b" makes the string "ab".
+{$ end hint.txt $}
+
+{$ begin solution.dart $}
+main() {
+  String first = getInput();
+  String second = getInput();
+  output(first + " " + second);
+  check();
+}
+{$ end solution.dart $}
+</code>
+</pre>

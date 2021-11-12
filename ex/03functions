@@ -1,0 +1,141 @@
+<h2>Functions and Returns</h2>
+<h3>Functions With Arguments</h3>
+
+<p>
+For these exercises, you don't need to add a <code class='themable
+function'>main</code> function or call the tests, just fill in
+the functions and it will be tested automatically.
+</p>
+<div class="remark">
+I'm sorry about the errors, I can't make them go away. They are there because
+the test code calls the functions with the correct amount of arguments, but
+those arguments aren't added yet in the starting code. You can make them go
+away by fixing the functions ;)
+</div>
+
+<h4>1. greet</h4>
+<p>
+Fill in the <code class='themable function'>greet</code> function to take a
+<code class='themable class'>String</code> argument, representing a name (for
+example "Josie"). The function then returns the <code class='themable
+class'>String</code> "Hello, Josie!"
+</p>
+
+<pre>
+<code class="run-dartpad:mode-inline:theme-dark:null_safety-true:width-100%:height-30rem">
+{$ begin main.dart $}
+greet() {
+  
+}
+{$ end main.dart $}
+{$ begin test.dart $}
+getInput() { _result(false, ["You don't need any input for this exercise!"]); }
+
+List<dynamic> results = [];
+output(dynamic a) { print(a); results.add(a); }
+
+check() {
+  _result(false, ["You don't need to output anything for this exercise!"]);
+}
+
+main() {
+  var res = greet("Josh");
+  if (!res.contains('!')) { _result(false, ["You forgot the exclamation mark."]); }
+  else if (!res.contains(',')) { _result(false, ["You forgot the comma in the middle."]); }
+  else if (!res.contains('H')) { _result(false, ["You forgot the capital."]); }
+  else if (res == 'Hello,Josh!') { _result(false, ["You forgot the space after the comma."]); }
+  else if (res == 'Hello, Josh!') { _result(true, ["greet is correct!"]); }
+}
+{$ end test.dart $}
+{$ begin solution.dart $}
+String greet(String name) {
+  return "Hello, " + name + "!";
+}
+{$ end solution.dart $}
+</code>
+</pre>
+
+<h4>2. bouncer</h4>
+<p>
+The bouncer function should take an <code class='themable class'>int</code>
+representing the age of someone who wants to enter the club. If the person is
+under 18, the function returns <code class='themable literal'>false</code>,
+else it returns <code class='themable literal'>true</code>.
+</p>
+
+<pre>
+<code class="run-dartpad:mode-inline:theme-dark:null_safety-true:width-100%:height-30rem">
+{$ begin main.dart $}
+bouncer() {
+  
+}
+{$ end main.dart $}
+{$ begin test.dart $}
+getInput() { _result(false, ["You don't need any input for this exercise!"]); }
+
+List<dynamic> results = [];
+output(dynamic a) { print(a); results.add(a); }
+
+check() {
+  _result(false, ["You don't need to output anything for this exercise!"]);
+}
+
+main() {
+  if (bouncer(12)) { _result(false, ["Oops, your bouncer let in someone underage..."]); }
+  else if (bouncer(17)) { _result(false, ["Oops, your bouncer let in someone underage..."]); }
+  else if (!bouncer(19)) { _result(false, ["Oops, your bouncer refused to let in an adult."]); }
+  else if (!bouncer(35)) { _result(false, ["Oops, your bouncer refused to let in an adult."]); }
+  else if (!bouncer(18)) { _result(false, ["Be careful, 18 should be old enough to enter."]); }
+  else { _result(true, ["bouncer is correct!"]); }
+}
+{$ end test.dart $}
+{$ begin solution.dart $}
+bool bouncer(int age) {
+  return age >= 18;
+
+  // the more conventional way to solve this
+  // is with an if statement. We will see those later,
+  // but if you already know them and used that,
+  // that's a better solution.
+}
+{$ end solution.dart $}
+</code>
+</pre>
+
+<h4>3. sum</h4>
+<p>
+<code class='themable function'>sum</code> simply takes 2 <code class='themable
+class'>int</code>s and returns their sum, also as an <code class='themable
+class'>int</code>.
+</p>
+
+
+<pre>
+<code class="run-dartpad:mode-inline:theme-dark:null_safety-true:width-100%:height-30rem">
+{$ begin main.dart $}
+sum() {
+  
+}
+{$ end main.dart $}
+{$ begin test.dart $}
+getInput() { _result(false, ["You don't need any input for this exercise!"]); }
+
+List<dynamic> results = [];
+output(dynamic a) { print(a); results.add(a); }
+
+check() {
+  _result(false, ["You don't need to output anything for this exercise!"]);
+}
+
+main() {
+  if (sum(2, 3) != 5) { _result(false, ["There is something wrong with the adding, 2 + 3 is in fact not ${sum(2, 3)}."]); }
+  else { _result(true, ["sum is correct!"]); }
+}
+{$ end test.dart $}
+{$ begin solution.dart $}
+int sum(int a, int b) {
+  return a + b;
+}
+{$ end solution.dart $}
+</code>
+</pre>

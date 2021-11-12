@@ -1,0 +1,104 @@
+<h2>How The Exercises Work</h2>
+<p>
+Welcome to the exercises module! Here I give you tasks to solve using your
+newly learnt Dart skills, in a special version of DartPad that automatically
+tests if your code works! Pretty neat, right? Well, almost. The automatic
+testing is not 100% automatic, unfortunately, so I added a small
+introduction here that shows you how to use the checking tools.
+<p>
+<h2><code>output</code> and <code>check</code></h2>
+<p>
+Whenever you write normal Dart code, you would use <code class='themable
+function'>print</code><code class='themable operator'>()</code> to write text
+to the console. In these exercises however you should use <code class='themable
+function'>output</code><code class='themable operator'>()</code>. This will
+also write your text to the console, but additionally it will mark the text as
+part of your solution to the exercise. Then at the end of your code, call the
+<code class='themable function'>check</code><code class='themable
+operator'>()</code>: it will check if your program gave the right output, and
+in some exercises it will also show you what exactly went wrong.
+</p>
+<div class='remark'>
+  <code class='themable function'>output</code><code class='themable
+  operator'>()</code> and <code class='themable function'>check</code><code
+  class='themable operator'>()</code> are not part of standard Dart: these are
+  functions that I implemented behind the scenes. That of course means that you
+  can only use them here, in the exercises module: they don't exist anywhere
+  else.
+</div>
+<p>
+As an example, here is a 'fake' exercise where the task was to write the
+classic 'hello world' program that prints the string "Hello, world!" to the
+screen. Try running it, and notice how there is a warning in the bottom right.
+Of course you can try correcting it as well, and checking out the hint and solution buttons.
+</p>
+<pre>
+<code class="run-dartpad:mode-inline:theme-dark:null_safety-true:width-100%:height-30rem">
+{$ begin main.dart $}
+main() {
+  output("Hello world!");
+  check();
+}
+{$ end main.dart $}
+{$ begin solution.dart $}
+main() {
+  output("Hello, world!");
+  check();
+}
+{$ end solution.dart $}
+{$ begin hint.txt $}
+Look carefully at the punctuation in the task.
+{$ end hint.txt $}
+{$ begin test.dart $}
+List<dynamic> results = [];
+void output(dynamic a) { print(a); results.add(a); }
+
+check() {
+    List< String> mistakes = [];
+    if (results.isEmpty) { _result(false, ["Your program didn't provide any output."]); }
+    else {
+      String a = results[0].toString();
+      if (!a.contains('!')) { mistakes.add('You forgot the exclamation mark at the end.'); }
+      if (!a.contains(',')) { mistakes.add('You forgot the comma in the middle.'); }
+      if (!a.contains('H')) { mistakes.add('Seems like you forgot the capital...'); }
+      if (a.contains('W')) { mistakes.add('You got one capital too many there.'); }
+
+      if (mistakes.isEmpty) { _result(true); }
+      else { _result(false, mistakes); }
+    }
+
+}
+{$ end test.dart $}
+</code>
+</pre>
+<p>
+If you want to just write your code without having a stressful checker looking
+over your shoulder: no worries, the <code class='themable
+function'>print</code><code class='themable operator'>()</code> function still
+works as it always did, so if you use that the checker will leave you alone :)
+</p>
+<h2>Getting Input</h2>
+<p>
+For some of the exercises where I give you some predefined input, you can call
+the function <code class='themable function'>getInput</code><code
+class='themable operator'>()</code> to get your input, like in this example that just echoes the input it receives.
+</p>
+<pre>
+<code class="run-dartpad:mode-inline:theme-dark:null_safety-true:width-100%:height-30rem">
+{$ begin main.dart $}
+main() {
+  String a = getInput();
+  output(a);
+  check();
+}
+{$ end main.dart $}
+{$ begin test.dart $}
+getInput() => "This is the input";
+
+List< String> results = [];
+output(String a) { print(a); results.add(a); }
+
+check() => _result(results[0] == 'This is the input');
+{$ end test.dart $}
+</code>
+</pre>
