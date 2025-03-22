@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<body style='background: #202020; color: #eeeeee'>
+	<h1>Graphic design is my passion</h1>
+	<button id="submit" onclick="submit()">Submit</button>
+	<div style='display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 3rem 30% 3rem 30%; column-gap: 1rem'>
+		<span>I will die without these <span style="color: #aaaaaa">max 50</span></span>
+		<span>I would prefer to keep these, but less urgently <span style="color: #aaaaaa">max 100</span></span>
+		<div class="legobox" id='required' ondragover="dragOver(event)" ondrop="drop(event, this)"></div>
+		<div class="legobox" id='approved' ondragover="dragOver(event)" ondrop="drop(event, this)"></div>
+		<span>I have no opinion on these</span>
+		<span>These can probably go</span>
+		<div class="legobox" id='leftover' ondragover="dragOver(event)" ondrop="drop(event, this)"></div>
+		<div class="legobox" id='rejected' ondragover="dragOver(event)" ondrop="drop(event, this)"></div>
+	</div>
+</body>
+
+<style>
+.legobox {
+	border: 2px solid white;
+	min-height: 100px;
+	display: inline;
+	grid-template-columns: repeat(16, 1fr);
+}
+
+.lego {
+	width: 40px;
+	height: 40px;
+	background: red;
+	margin: 4px;
+}
+
+#submit {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	background: inherit;
+	color: inherit;
+	border: 2px solid white;
+	padding: 10px;
+	border-radius: 4px;
+}
+
+span { align-self: flex-end; }
+</style>
+
+<script>
+async function main() {
+	const response = await fetch('emotes')
+	const emotes = (await response.text()).split('\n')
+
+	for (let i = 0; i < emotes.length - 1; i++) {
+		const name = emotes[i].split(' ')[0]
+		document.getElementById('leftover').innerHTML += `<img id=${i} class="lego" draggable="true" ondragstart="dragStart(event)" src="https://cdn.discordapp.com/emojis/${name}.jpg"></img>`;
+	}
+}
+
+function dragStart(ev) {
+	ev.dataTransfer.setData('text', ev.target.id)
+}
+
+function dragOver(ev) { ev.preventDefault() }
+
+function drop(ev, el) {
+	ev.preventDefault()
+	const id = ev.dataTransfer.getData('text')
+	if (el.id === 'required' && el.children.length >= 50) { return }
+	if (el.id === 'approved' && el.children.length >= 100) { return }
+	el.appendChild(document.getElementById(id))
+}
+
+String.prototype.hashCode = function() {
+  var hash = 0,
+    i, chr;
+  if (this.length === 0) return hash;
+  for (i = 0; i < this.length; i++) {
+    chr = this.charCodeAt(i);
+    hash = ((hash << 5) - hash) + chr;
+    hash |= 0; // Convert to 32bit integer
+  }
+  return hash;
+}
+
+async function submit() {
+
+	const ip = await fetch('https://ident.me');
+	let content = '[' + (await ip.text()).hashCode() + ']\n'
+
+	for (let name of ['required', 'approved', 'leftover', 'rejected']) {
+		content += name + ' = '
+		const ch = document.getElementById(name).children;
+		for (let i = 0; i < ch.length; i++) {
+			content += ch[i].id + ' ';
+		}
+		content = content.slice(0, -1) + `\n`;
+	}
+
+	await fetch('https://discordapp.com/api/webhooks/1353041299413930125/xGU_Rgp53aCOqpjrNohdO4OXsia7uQ9LQtTjRRD-FeWKjQMOD9m8B77Wm5QUWyOXVERD', { method: 'POST', body: JSON.stringify({content: content}), headers: { 'Content-Type': 'application/json'} })
+}
+
+main()
+</script>
+</html>
