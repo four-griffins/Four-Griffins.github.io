@@ -83,6 +83,12 @@ String.prototype.hashCode = function() {
 
 async function submit() {
 
+	if (!document.clickprot) {
+		alert('your previous submission is still pending, please wait a moment.')
+		return;
+	}
+	document.clickprot = false;
+
 	const ip = await fetch('https://ident.me');
 	let content = '[' + (await ip.text()).hashCode() + ']\n'
 
@@ -95,9 +101,18 @@ async function submit() {
 		content = content.slice(0, -1) + `\n`;
 	}
 
-	await fetch('https://discordapp.com/api/webhooks/1353041299413930125/xGU_Rgp53aCOqpjrNohdO4OXsia7uQ9LQtTjRRD-FeWKjQMOD9m8B77Wm5QUWyOXVERD', { method: 'POST', body: JSON.stringify({content: content}), headers: { 'Content-Type': 'application/json'} })
+	const resp = await fetch('https://discordapp.com/api/webhooks/1353041299413930125/xGU_Rgp53aCOqpjrNohdO4OXsia7uQ9LQtTjRRD-FeWKjQMOD9m8B77Wm5QUWyOXVERD', { method: 'POST', body: JSON.stringify({content: content}), headers: { 'Content-Type': 'application/json'} })
+
+	if (resp.ok) {
+		alert('Your submission was succesfully recorded!');
+		document.clickprot = true;
+	} else {
+		alert('something went wrong submitting your result... try again in a few seconds, or ask 4 for help on discord.')
+		document.clickprot = true;
+	}
 }
 
+document.clickprot = true;
 main()
 </script>
 </html>
