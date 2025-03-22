@@ -50,8 +50,8 @@ async function main() {
 	const emotes = (await response.text()).split('\n')
 
 	for (let i = 0; i < emotes.length - 1; i++) {
-		const name = emotes[i].split(' ')[0]
-		document.getElementById('leftover').innerHTML += `<img id=${i} class="lego" draggable="true" ondragstart="dragStart(event)" src="https://cdn.discordapp.com/emojis/${name}.jpg"></img>`;
+		const parts = emotes[i].split(' ')
+		document.getElementById('leftover').innerHTML += `<img id=${i} class="lego" title=":${parts[1]}:" draggable="true" ondragstart="dragStart(event)" src="https://cdn.discordapp.com/emojis/${parts[0]}.jpg"></img>`;
 	}
 }
 
